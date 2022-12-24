@@ -26,7 +26,13 @@ export class NavbarComponent implements OnInit{
   openLoginDialog() {
     this.dialog.open(LoginComponent).afterClosed().subscribe(
       value =>{
-      this.userType = value});
+        if (!value){
+          this.userType="UNREGISTERED";
+        }
+        else{
+
+          this.userType = value;
+        }});
   }
 
   openRegisterDialog(){
