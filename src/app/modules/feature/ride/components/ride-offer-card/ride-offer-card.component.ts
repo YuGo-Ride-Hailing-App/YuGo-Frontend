@@ -7,7 +7,6 @@ import {LocationInfo} from "../../../../shared/models/LocationInfo";
 import {PassengerService} from "../../../../shared/services/passenger.service";
 import {RideService} from "../../services/ride.service";
 import {DriverRideNotificationService} from "../../services/driver-ride-notification.service";
-import {Coordinates} from "../../model/Coordinates";
 
 @Component({
   selector: 'app-ride-offer-card',

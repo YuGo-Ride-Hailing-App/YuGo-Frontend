@@ -27,8 +27,7 @@ export class MapComponent implements AfterViewInit{
   constructor(private mapService:MapService,
               private destinationPickerService:DestinationPickerService,
               private rideService:RideService,
-              private passengerRideService:PassengerRideNotificationsService,
-              private driverRideService:DriverRideNotificationService) {
+              private passengerRideService:PassengerRideNotificationsService) {
   }
   private initMap():void{
     this.map = L.map('map', {
@@ -68,7 +67,7 @@ export class MapComponent implements AfterViewInit{
     this.initMap();
 
     this.passengerRideService.rideAcceptedEvent.subscribe(ride => {
-      this.driverLocationSubscription = this.passengerRideService.driverLocationSubscriber.subscribe(coordinates => {
+      this.driverLocationSubscription = this.passengerRideService.driverLocationUpdatedEvent.subscribe(coordinates => {
         if(this.driverLocationMarker){
           this.driverLocationMarker.setLatLng([coordinates.latitude, coordinates.longitude]);
         }else{

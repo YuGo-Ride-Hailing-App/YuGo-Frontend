@@ -29,14 +29,13 @@ export class SearchingDriverScreenComponent implements OnInit{
         this.loading = false;
       }
     });
-    this.passengerRideService.rideSearchCompleteSubscriber.subscribe(ride => {
-      if(ride.status == "ACCEPTED"){
-        let date:Date = new Date(ride.startTime);
-        this.text = "Driver is on his way.\nEstimated time of arrival: " + date.getHours() + ":" + date.getMinutes() + "h";
-      }
-      else if(ride.status == "REJECTED"){
-        this.text = "We couldn't find available driver, please try again later."
-      }
+    this.passengerRideService.rideAcceptedEvent.subscribe(ride => {
+      let date:Date = new Date(ride.startTime);
+      this.text = "Driver is on his way.\nEstimated time of arrival: " + date.getHours() + ":" + date.getMinutes() + "h";
+      this.loading = false;
+    });
+    this.passengerRideService.rideRejectedEvent.subscribe(ride => {
+      this.text = "We couldn't find available driver, please try again later."
       this.loading = false;
     });
   }

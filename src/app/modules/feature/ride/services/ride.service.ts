@@ -20,6 +20,9 @@ export class RideService {
   getRide(rideID:number):Observable<RideInfo>{
     return this.http.get<RideInfo>(environment.apiHost + "ride/" + rideID);
   }
+  startRide(rideID:number):Observable<RideInfo>{
+    return this.http.get<RideInfo>(`${environment.apiHost}ride/${rideID}/start`, {});
+  }
   acceptRide(rideID:number):Observable<RideInfo>{
     return this.http.put<RideInfo>(environment.apiHost + "ride/"+ rideID+"/accept", {});
   }
