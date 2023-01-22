@@ -16,7 +16,6 @@ import {
   AccountActivationComponent
 } from "../app/modules/core/components/account-activation/account-activation.component";
 import {UsersPanicsComponent} from "../app/modules/feature/panic/pages/users-panics.component";
-import {ReportComponent} from "../app/modules/feature/report/pages/report.component";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -27,7 +26,6 @@ const routes: Routes = [
   {path: 'vehicle-requests', component: VehicleChangeRequestsComponent, canActivate: [LoginGuard, AdminGuard]},
   {path: 'favorite', component: FavoritePathComponent, canActivate: [LoginGuard]},
   {path: 'reset/:code', component: ForgotPasswordComponent },
-  {path: 'reports', component: ReportComponent },
   {path: 'home?activationDialog=true&code=:code', component: AccountActivationComponent },
   {path: '**',  redirectTo: '/home'}
 ];

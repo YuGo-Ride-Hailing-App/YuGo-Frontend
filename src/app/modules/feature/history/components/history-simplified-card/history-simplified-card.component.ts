@@ -16,7 +16,6 @@ import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {HttpErrorResponse} from "@angular/common/http";
 import {HistoryDetailedDialogComponent} from "../history-detailed-dialog/history-detailed-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {MatOption} from "@angular/material/core";
 import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {PassengerService} from "../../../../shared/services/passenger.service";
@@ -97,6 +96,7 @@ export class HistorySimplifiedCardComponent implements OnInit, AfterViewInit{
         }
       })
     }
+    //TODO: Uraditi za admina
   }
 
   pageChanged(event: PageEvent) {
