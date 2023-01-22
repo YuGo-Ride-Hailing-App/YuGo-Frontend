@@ -1,8 +1,7 @@
-<div class="w-100 h-100" style="position: relative">
+<div class="w-100 h-100 .mapContainer">
   <div class="map-frame">
     <div id="map-driver"></div>
   </div>
-  <app-inride-panel *ngIf="rideStatus === 2 && inrideDataReady" [currentRide]="currentRide" [rideLengthKm]="rideDistance" [distanceLeftChangedEvent]="distanceLeftChanged.asObservable()" class="position-absolute top-0 start-0 ms-5 mt-5 to-front"></app-inride-panel>
-  <button *ngIf="rideStatus === 1" (click)="startRide()" class="position-absolute bottom-0 end-0 me-5 mb-5 to-front" mat-flat-button color="accent">Start ride</button>
-  <button *ngIf="rideStatus === 2" (click)="endRide()" class="position-absolute bottom-0 end-0 me-5 mb-5 to-front" mat-flat-button color="accent">End ride</button>
+  <button *ngIf="rideStatus == 1" (click)="startRide()" class="position-absolute bottom-0 end-0 me-5 mb-5" mat-flat-button color="accent">Start ride</button>
+  <button *ngIf="rideStatus == 2" (click)="endRide()" class="position-absolute bottom-0 end-0 me-5 mb-5" mat-flat-button color="accent">End ride</button>
 </div>

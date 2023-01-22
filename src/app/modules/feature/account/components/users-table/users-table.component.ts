@@ -1,4 +1,5 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {HttpErrorResponse} from "@angular/common/http";
 import {UserService} from "../../../../shared/services/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSort} from "@angular/material/sort";
@@ -19,7 +20,7 @@ import {DriverRegisterComponent} from "../../../../core/components/register/driv
   styleUrls: ['./users-table.component.css']
 })
 export class UsersTableComponent implements AfterViewInit {
-  searchText = "";
+  searchText: string = "";
   dataSource = new MatTableDataSource<UserInfo>();
   selection = new SelectionModel<UserInfo>(false, []);
   displayedColumns: string[] = ["select",'id', 'name', 'surname', 'phone', 'email', 'address', 'role', 'blocked'];
@@ -64,6 +65,10 @@ export class UsersTableComponent implements AfterViewInit {
           this.usersPaginator.pageIndex = this.currentPage;
           this.usersPaginator.length = info.totalCount;
         });
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+        }
       }
     })
   }
@@ -79,6 +84,11 @@ export class UsersTableComponent implements AfterViewInit {
       next: () => {
         this._snackBar.open("User blocked successfully", "OK");
         this.loadData();
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+
+        }
       }
     });
   }
@@ -88,6 +98,11 @@ export class UsersTableComponent implements AfterViewInit {
       next: () => {
         this._snackBar.open("User unblocked successfully", "OK");
         this.loadData();
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+
+        }
       }
     });
   }

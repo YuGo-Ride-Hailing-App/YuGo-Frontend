@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {RideInfo} from "../../../../shared/models/RideInfo";
 import {MapService} from "../../../home/services/map.service";
 import * as L from "leaflet";
@@ -7,20 +7,21 @@ import {LocationInfo} from "../../../../shared/models/LocationInfo";
 import {PassengerService} from "../../../../shared/services/passenger.service";
 import {RideService} from "../../services/ride.service";
 import {DriverRideNotificationService} from "../../services/driver-ride-notification.service";
+import {Coordinates} from "../../model/Coordinates";
 
 @Component({
   selector: 'app-ride-offer-card',
   templateUrl: './ride-offer-card.component.html',
   styleUrls: ['./ride-offer-card.component.css']
 })
-export class RideOfferCardComponent implements OnInit,AfterViewInit{
+export class RideOfferCardComponent implements OnInit{
   private map:any;
-  passengerName="John Doe";
-  startLocation="Bulevar Oslobodjenja 30";
-  endLocation="Majke Jevrosime 112";
-  numOfPassengers=2;
+  passengerName: string="John Doe";
+  startLocation: string="Bulevar Oslobodjenja 30";
+  endLocation: string="Majke Jevrosime 112";
+  numOfPassengers: number=2;
   rejectionText?:string = "";
-  rejectionFormEnabled = false;
+  rejectionFormEnabled:boolean = false;
 
   constructor(private mapService:MapService,private dialogRef: MatDialogRef<RideOfferCardComponent>,
               @Inject(MAT_DIALOG_DATA) private data:RideInfo,
@@ -58,7 +59,7 @@ export class RideOfferCardComponent implements OnInit,AfterViewInit{
 
 
   ngAfterViewInit(): void {
-    const DefaultIcon = L.icon({
+    let DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
       iconAnchor:[12.5, 41]
     });
@@ -66,8 +67,8 @@ export class RideOfferCardComponent implements OnInit,AfterViewInit{
     L.Marker.prototype.options.icon = DefaultIcon;
 
     this.initMap();
-    const departure:LocationInfo = this.data.locations.at(0)!.departure;
-    const destination:LocationInfo = this.data.locations.at(0)!.destination;
+    let departure:LocationInfo = this.data.locations.at(0)!.departure;
+    let destination:LocationInfo = this.data.locations.at(0)!.destination;
     this.route(departure.latitude, departure.longitude, destination.latitude, destination.longitude);
   }
 
@@ -85,12 +86,12 @@ export class RideOfferCardComponent implements OnInit,AfterViewInit{
   }
 
   ngOnInit(): void {
-    const departure:LocationInfo = this.data.locations.at(0)!.departure;
-    const destination:LocationInfo = this.data.locations.at(0)!.destination;
+    let departure:LocationInfo = this.data.locations.at(0)!.departure;
+    let destination:LocationInfo = this.data.locations.at(0)!.destination;
     let tokens:string[] = departure.address.split(',');
-    const departureAddress:string = tokens[0] + " " + tokens[1] + " " + tokens[2];
+    let departureAddress:string = tokens[0] + " " + tokens[1] + " " + tokens[2];
     tokens = destination.address.split(',');
-    const destinationAddress:string = tokens[0] + " " + tokens[1] + " " + tokens[2];
+    let destinationAddress:string = tokens[0] + " " + tokens[1] + " " + tokens[2];
     this.startLocation = departureAddress;
     this.endLocation = destinationAddress;
     this.numOfPassengers = this.data.passengers.length;

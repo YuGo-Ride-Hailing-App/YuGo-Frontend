@@ -2,6 +2,7 @@ import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Vehicle} from "../../../../shared/models/Vehicle";
 import {VehicleService} from "../../../../shared/services/vehicle.service";
+import {HttpErrorResponse} from "@angular/common/http";
 import {take} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
@@ -12,12 +13,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class VehicleDetailsComponent implements OnInit, AfterViewInit{
   @Input()
-  public userId = -1;
+  public userId: number = -1;
 
-  LICENSE_NUMBER_REGEX= "[A-Z][A-Z][0-9]*[A-Z][A-Z]";
+  LICENSE_NUMBER_REGEX:string= "[A-Z][A-Z][0-9]*[A-Z][A-Z]";
   vehicleDetailsForm : FormGroup;
-  editEnabled = false;
-  responseMessage = "";
+  editEnabled: boolean = false;
+  responseMessage: string = "";
   constructor(private _snackBar: MatSnackBar, private _vehicleService: VehicleService) {
     this.vehicleDetailsForm = new FormGroup({
       model: new FormControl('', [Validators.required]),
@@ -49,6 +50,11 @@ export class VehicleDetailsComponent implements OnInit, AfterViewInit{
           petTransport: vehicle.petTransport,
           passengerSeats: vehicle.passengerSeats,
         })
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+
+        }
       }
     });
   }
@@ -65,7 +71,7 @@ export class VehicleDetailsComponent implements OnInit, AfterViewInit{
   }
 
   submitEdit() : void {
-    const vehicleDetails : Vehicle = {
+    let vehicleDetails : Vehicle = {
       "id":0,
       "driverId":0,
       "model": this.vehicleDetailsForm.controls['model'].value,
@@ -83,6 +89,11 @@ export class VehicleDetailsComponent implements OnInit, AfterViewInit{
     this._vehicleService.makeVehicleChangeRequest(this.userId, vehicleDetails).pipe(take(1)).subscribe({
       next: (response) => {
         this._snackBar.open(response.message,"OK");
+      },
+      error: (error) => {
+        if (error instanceof HttpErrorResponse) {
+
+        }
       }
     });
     this.loadVehicleData();

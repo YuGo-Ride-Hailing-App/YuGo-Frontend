@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
+import {HttpErrorResponse} from "@angular/common/http";
 import {ReviewService} from "../../../../shared/services/review.service";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {RideInfo} from "../../../../shared/models/RideInfo";
-import {ReviewPerPassengerInfo} from "../../models/ReviewPerPassengerInfo";
+import {ReviewPerPassengerInfo, ReviewsPerRideInfo} from "../../models/ReviewPerPassengerInfo";
 import {ReviewInfoOut} from "../../models/ReviewInfoOut";
 import {PassengerService} from "../../../../shared/services/passenger.service";
 import {MatTableDataSource} from "@angular/material/table";
@@ -13,14 +14,14 @@ import {Observable} from "rxjs";
   templateUrl: './history-review-card-driver.component.html',
   styleUrls: ['./history-review-card-driver.component.css']
 })
-export class HistoryReviewCardDriverComponent implements OnInit{
+export class HistoryReviewCardDriverComponent implements OnInit,AfterViewInit{
 
   reviewList:ReviewInfoOut[]=[];
   reviewOut:ReviewOut[]=[];
   rideReviewList:ReviewPerPassengerInfo[]=[];
   dataSource= new MatTableDataSource<ReviewOut>();
   obs: Observable<any>;
-  passengerName="";
+  passengerName:string="";
   public ride : RideInfo;
   constructor(private reviewService: ReviewService, private passengerService: PassengerService, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.ride = data.ride;
@@ -28,6 +29,9 @@ export class HistoryReviewCardDriverComponent implements OnInit{
   }
   ngOnInit(){
     this.getReviews();
+  }
+  ngAfterViewInit(){
+
   }
 
   getReviews(){
@@ -48,12 +52,18 @@ export class HistoryReviewCardDriverComponent implements OnInit{
               {next:(passenger) => {
                   passengerCred= passenger.name+" "+ passenger.surname;
                   this.reviewOut.push({reviewInfoOut:item,passengerName:passengerCred,typeOfReview:this.getTypeString(item.type)})
-                }})
+                },
+                error: (error) => {
+                  if (error instanceof HttpErrorResponse) {
+                  }}})
 
           })
           this.dataSource.data=this.reviewOut;
 
-        }})
+        },
+        error: (error) => {
+          if (error instanceof HttpErrorResponse) {
+          }}})
   }
 
   getPassengerCredentials(id: number){
@@ -69,7 +79,7 @@ export class HistoryReviewCardDriverComponent implements OnInit{
     else
       this.passengerName="DRUGI";
   }
-  getTypeString(typeOfReview:string):string{
+  getTypeString(typeOfReview:string):String{
     if (typeOfReview=="VEHICLE")
       return "Vehicle Review";
     else
@@ -81,5 +91,5 @@ export class HistoryReviewCardDriverComponent implements OnInit{
 export interface ReviewOut{
   reviewInfoOut:ReviewInfoOut;
   passengerName:string;
-  typeOfReview:string
+  typeOfReview:String
 }

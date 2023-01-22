@@ -7,7 +7,6 @@ import {AuthService} from "../../../core/services/auth.service";
 import {Router} from "@angular/router";
 import {Subject} from "rxjs";
 import {RideInfo} from "../../../shared/models/RideInfo";
-import {UserSimpleInfo} from "../../../shared/models/UserSimpleInfo";
 
 @Component({
   selector: 'app-ride',
@@ -15,15 +14,13 @@ import {UserSimpleInfo} from "../../../shared/models/UserSimpleInfo";
   styleUrls: ['./ride.component.css']
 })
 export class RideComponent {
-  formPageIndex = 0;
+  formPageIndex: number = 0;
 
   rideDateTime?:Date;
   rideProperties?:RideProperties;
   fromAddress?:LocationInfo;
   toAddress?:LocationInfo;
-  passengers?:UserSimpleInfo[];
-
-  searchingDriver = false;
+  searchingDriver:boolean = false;
 
   errorMessageEvent:Subject<string> = new Subject<string>();
   rideFoundEvent:Subject<RideInfo> = new Subject<RideInfo>();
@@ -31,11 +28,15 @@ export class RideComponent {
   constructor(private rideService:RideService, private authService:AuthService, private router: Router) {
   }
 
+  test(selectedDateTime:Date){
+    console.log(selectedDateTime);
+    this.rideDateTime = selectedDateTime;
+  }
   switchFormPage(switchDirection:number){
-    if(this.formPageIndex + switchDirection > 3){
+    if(this.formPageIndex + switchDirection > 2){
       this.formPageIndex += switchDirection;
       this.searchingDriver = true;
-      this.bookRide().then(() => {
+      this.bookRide().then(_ => {
         //this.formPageIndex = 0;
       });
     }
@@ -50,10 +51,9 @@ export class RideComponent {
   }
 
   async bookRide(){
-    console.log(this.passengers);
-    const ride:RideBooking = {
+    let ride:RideBooking = {
       locations:[{departure:this.fromAddress!, destination:this.toAddress!}],
-      passengers:this.passengers!,
+      passengers:[{id:this.authService.getId(), email:""}],
       vehicleType:this.rideProperties!.vehicleTypeName,
       babyTransport:this.rideProperties!.includeBabies,
       petTransport:this.rideProperties!.includePets,

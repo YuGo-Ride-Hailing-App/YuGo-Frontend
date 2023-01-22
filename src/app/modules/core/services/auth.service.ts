@@ -41,14 +41,7 @@ export class AuthService {
     }
     return "UNREGISTERED";
   }
-  getEmail(): string{
-    if(this.isLoggedIn()){
-      const accessToken: any = localStorage.getItem('token');
-      const helper = new JwtHelperService();
-      return helper.decodeToken(accessToken).email;
-    }
-    return "";
-  }
+
   getId(): number {
     if (this.isLoggedIn()) {
       const accessToken: any = localStorage.getItem('token');

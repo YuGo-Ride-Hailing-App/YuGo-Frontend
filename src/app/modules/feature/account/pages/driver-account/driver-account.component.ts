@@ -7,7 +7,9 @@ import {Component, Input} from '@angular/core';
 })
 export class DriverAccountComponent {
   @Input()
-  public userId = -1;
+  public userId: number = -1;
   @Input()
-  public role = "";
+  public role: string = "";
+  constructor() {
+  }
 }

@@ -8,6 +8,7 @@ import {Coordinates} from "../model/Coordinates";
 })
 export class PassengerRideNotificationsService {
 
+  constructor() { }
 
   private rideSearchCompletedPublisher:Subject<RideInfo> = new Subject<RideInfo>();
   rideSearchCompleteSubscriber:Observable<RideInfo> = this.rideSearchCompletedPublisher.asObservable();

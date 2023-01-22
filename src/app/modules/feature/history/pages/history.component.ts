@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {PassengerRegisterComponent} from "../../../core/components/register/passenger-register/passenger-register.component";
+import {MatDialog} from '@angular/material/dialog';
+import {HistoryDetailedDialogComponent} from "../components/history-detailed-dialog/history-detailed-dialog.component";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -7,8 +10,8 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./history.component.css']
 })
 export class HistoryComponent implements OnInit{
-  public role = "";
-  public userId = -1;
+  public role: string = "";
+  public userId: number = -1;
 
   constructor(private _route: ActivatedRoute) {}
 

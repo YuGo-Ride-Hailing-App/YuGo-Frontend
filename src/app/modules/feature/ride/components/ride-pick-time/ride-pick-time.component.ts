@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {interval, Observable} from "rxjs";
 
 @Component({
   selector: 'app-ride-pick-time',
@@ -6,7 +7,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./ride-pick-time.component.css']
 })
 
-export class RidePickTimeComponent{
+export class RidePickTimeComponent implements OnInit{
   @Output() changeFormPageEmitter = new EventEmitter<number>();
   @Output() rideDateTimeChangedEvent = new EventEmitter<Date>();
   selectedTime?:string;
@@ -20,10 +21,10 @@ export class RidePickTimeComponent{
     this.selectedDate = this.currentDateTime;
   }
   private getSelectedDateTime():Date{
-    const tokens:string[] = this.selectedTime!.split(':');
-    const hours = Number(tokens[0]);
-    const minutes = Number(tokens[1]);
-    const output:Date = new Date(this.selectedDate!);
+    let tokens:string[] = this.selectedTime!.split(':');
+    let hours:number = Number(tokens[0]);
+    let minutes:number = Number(tokens[1]);
+    let output:Date = new Date(this.selectedDate!);
     output.setHours(hours);
     output.setMinutes(minutes);
     return output;
@@ -37,6 +38,9 @@ export class RidePickTimeComponent{
     this.changeFormPageEmitter.emit(-1);
   }
 
+  ngOnInit(): void {
+
+  }
   dateToString(date:Date):string{
     return date.getHours() + ":" + date.getMinutes();
   }
@@ -49,7 +53,7 @@ export class RidePickTimeComponent{
   }
   checkMinTime(){
     if(this.selectedDate){
-      const dummy:Date = new Date(this.selectedDate);
+      let dummy:Date = new Date(this.selectedDate);
       dummy.setHours(0,0,0,0);
       if(dummy > this.currentDateTime){
         this.minTime.setHours(0,0,0,0);

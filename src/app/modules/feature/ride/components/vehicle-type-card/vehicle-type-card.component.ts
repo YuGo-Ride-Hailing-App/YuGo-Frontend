@@ -1,18 +1,18 @@
-import {AfterContentInit, Component, Input, OnInit} from '@angular/core';
-import {Observable } from "rxjs";
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Observable, Subscription} from "rxjs";
 import {DomSanitizer} from "@angular/platform-browser";
 @Component({
   selector: 'app-vehicle-type-card',
   templateUrl: './vehicle-type-card.component.html',
   styleUrls: ['./vehicle-type-card.component.css']
 })
-export class VehicleTypeCardComponent implements OnInit, AfterContentInit{
+export class VehicleTypeCardComponent implements OnInit{
   @Input() vehicleType?:VehicleTypeCardData;
   @Input() distanceChangedEvent?: Observable<number>;
   @Input() index?:number;
   @Input() selectionChangedEvent?: Observable<number>;
   image:any;
-  isChecked = false;
+  isChecked:boolean = false;
   totalPrice?:number;
   onClick():void{
     this.isChecked = !this.isChecked;
@@ -29,7 +29,7 @@ export class VehicleTypeCardComponent implements OnInit, AfterContentInit{
   }
 
   ngAfterContentInit(): void {
-    const objectURL = URL.createObjectURL(this.vehicleType?.image);
+    let objectURL = URL.createObjectURL(this.vehicleType?.image);
     this.image = this.sanitizer.bypassSecurityTrustUrl(objectURL);
   }
 }

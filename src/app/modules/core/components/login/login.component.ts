@@ -19,7 +19,7 @@ export class LoginComponent{
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
-  errorMessage = '';
+  errorMessage:string = '';
 
   forgotPasswordForm = new FormGroup({
     emailForgot: new FormControl('', [Validators.required])
@@ -56,7 +56,7 @@ export class LoginComponent{
       email: this.forgotPasswordForm.value.emailForgot
     };
     if (this.forgotPasswordForm.valid){
-        this.userService.sendPasswordCodeEfficient(loginVal.email!).subscribe({next:()=>{
+        this.userService.sendPasswordCodeEfficient(loginVal.email!).subscribe({next:(returnCode)=>{
             this._snackBar.open("Email sent to "+ loginVal.email, "OK");
             this.dialogRef.close();
           }})

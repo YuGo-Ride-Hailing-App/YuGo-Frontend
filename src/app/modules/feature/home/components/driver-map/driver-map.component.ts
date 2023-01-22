@@ -2,9 +2,8 @@ import {AfterViewInit, Component} from '@angular/core';
 import * as L from "leaflet";
 import {DriverRideNotificationService} from "../../../ride/services/driver-ride-notification.service";
 import {Coordinates} from "../../../ride/model/Coordinates";
-import {Subject, take} from "rxjs";
-import { Marker} from "leaflet";
-import {RideInfo} from "../../../../shared/models/RideInfo";
+import {take} from "rxjs";
+import {Control, Marker} from "leaflet";
 
 @Component({
   selector: 'app-driver-map',
@@ -17,12 +16,6 @@ export class DriverMapComponent implements AfterViewInit{
   private driverLocationMarker?:Marker;
   private destination?:Coordinates;
   private path?:L.Routing.Control;
-
-  currentRide?:RideInfo;
-  calculateDistance = 0      // 0 - distance not calculated and shouldn't be | 1 - distance not calculated but should be | 2 - distance calculated
-  rideDistance?:number;
-  distanceLeftChanged:Subject<number> = new Subject<number>();
-  inrideDataReady = false;
 
   rideStatus?:number;   // 0 - no active ride | 1 - there is an active ride, but it is not started yet | 2 - there is an active ride, and it is started
 
@@ -51,19 +44,6 @@ export class DriverMapComponent implements AfterViewInit{
     if(this.driverLocation && this.destination){
       if(this.path){
         this.path.setWaypoints([L.latLng(this.driverLocation.latitude, this.driverLocation.longitude), L.latLng(this.destination.latitude, this.destination.longitude)]);
-
-        this.path.on('routesfound', e => {
-          const routes:any = e.routes;
-          const summary = routes[0].summary;
-          const distance:number = summary.totalDistance / 1000.0;
-          if(this.calculateDistance == 1){
-            this.calculateDistance = 2;
-            this.rideDistance = distance;
-            this.inrideDataReady = true;
-          }
-          this.distanceLeftChanged.next(distance);
-        })
-
       }else{
         this.path = L.Routing.control({
           autoRoute:true,
@@ -72,7 +52,7 @@ export class DriverMapComponent implements AfterViewInit{
         }).addTo(this.map);
       }
     }
-    else if(this.path){
+    else {
       this.map.removeControl(this.path);
     }
   }
@@ -82,7 +62,6 @@ export class DriverMapComponent implements AfterViewInit{
     this.driverRideService.startCurrentRide();
   }
   endRide(){
-    this.inrideDataReady = false;
     this.driverRideService.endCurrentRide();
     this.destination = undefined;
     this.checkForRoute();
@@ -99,7 +78,6 @@ export class DriverMapComponent implements AfterViewInit{
       }else{
         this.rideStatus = 1;
       }
-      this.currentRide = ride;
     });
     this.driverRideService.currentDriverLocation.pipe(take(1)).subscribe(coordinates => {
       this.driverLocation = coordinates;
@@ -115,9 +93,6 @@ export class DriverMapComponent implements AfterViewInit{
       this.checkForRoute();
     });
     this.driverRideService.driverDestination.subscribe(coordinates => {
-      if(this.rideStatus == 2 && this.calculateDistance == 0){
-        this.calculateDistance = 1;
-      }
       this.destination = coordinates;
       this.checkForRoute();
     });

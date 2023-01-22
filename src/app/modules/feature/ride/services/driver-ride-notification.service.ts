@@ -27,26 +27,26 @@ export class DriverRideNotificationService {
   private async runSimulation(departure:Coordinates, destination:Coordinates){
     const headers = {'skip':'true'};
     this.vehicleService.getVehicle(this.authService.getId()).subscribe(vehicle => {
-      const response:Observable<any> = this.http.get(`https://routing.openstreetmap.de/routed-car/route/v1/driving/${departure.longitude},${departure.latitude};${destination.longitude},${destination.latitude}?geometries=geojson&overview=false&alternatives=true&steps=true`, {'headers':headers});
+      let response:Observable<any> = this.http.get(`https://routing.openstreetmap.de/routed-car/route/v1/driving/${departure.longitude},${departure.latitude};${destination.longitude},${destination.latitude}?geometries=geojson&overview=false&alternatives=true&steps=true`, {'headers':headers});
       response.subscribe(value => {
         let coordinates:any[] = [];
-        for(const step of value.routes[0].legs[0].steps){
+        for(let step of value.routes[0].legs[0].steps){
           coordinates = [...coordinates, ...step.geometry.coordinates]
         }
-        const simulationEndEvent:Subject<void> = new Subject();
+        let simulationEndEvent:Subject<void> = new Subject();
         timer(0,1000).pipe(takeUntil(simulationEndEvent), takeUntil(this.startRideEvent), takeUntil(this.endRideEvent))
-          .subscribe(() => {
-            const newCoordsArr = coordinates.shift();
+          .subscribe(_ => {
+            let newCoordsArr = coordinates.shift();
             if(!newCoordsArr){
               simulationEndEvent.next();
               return;
             }
-            const coords:Coordinates = {
+            let coords:Coordinates = {
               latitude:newCoordsArr[1],
               longitude:newCoordsArr[0]
             }
             this.currentDriverLocation.next(coords);
-            const updatedLocation:LocationInfo = {
+            let updatedLocation:LocationInfo = {
               address:"some address",
               latitude:coords.latitude,
               longitude:coords.longitude
@@ -85,7 +85,7 @@ export class DriverRideNotificationService {
   }
 
   private startRideSimulation(ride:RideInfo){
-    const rideStartLocation:Coordinates = {
+    let rideStartLocation:Coordinates = {
       latitude: ride.locations[0].departure.latitude,
       longitude: ride.locations[0].departure.longitude,
     }
@@ -97,7 +97,7 @@ export class DriverRideNotificationService {
       });
     });
 
-    const rideEndLocation:Coordinates = {
+    let rideEndLocation:Coordinates = {
       latitude: ride.locations[0].destination.latitude,
       longitude: ride.locations[0].destination.longitude,
     }

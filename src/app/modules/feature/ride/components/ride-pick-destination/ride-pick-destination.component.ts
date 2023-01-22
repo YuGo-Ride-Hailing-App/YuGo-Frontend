@@ -47,7 +47,7 @@ export class RidePickDestinationComponent implements AfterViewInit{
       return;
     }
     this.recommendedAddresses = [];
-    let searchValue = "";
+    let searchValue:string = "";
     if(this.selectedField == "from"){
       if(this.destinationForm.controls.from.value){
         searchValue = this.destinationForm.controls.from.value;
@@ -62,9 +62,11 @@ export class RidePickDestinationComponent implements AfterViewInit{
     }
     this.mapService.search(searchValue).subscribe({
       next: (result) => {
-        for (const address of result){
+        for (let address of result){
           this.recommendedAddresses.push(address);
         }
+      },
+      error: () => {
       }
     });
 

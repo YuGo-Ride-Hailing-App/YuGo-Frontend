@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DocumentService} from "../../services/document.service";
 import {DriverService} from "../../../../shared/services/driver.service";
+import {AuthService} from "../../../../core/services/auth.service";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {MatDialog} from "@angular/material/dialog";
 import {ImagePreviewComponent} from "../../../../shared/components/image-preview/image-preview.component";
@@ -25,10 +26,10 @@ export class DocumentsComponent implements OnInit{
 
   driverDocument:DocumentInfo={} as DocumentInfo;
   vehicleDocument:DocumentInfo={} as DocumentInfo;
-  driverLicence="No file";
-  vehicleLicence="No file";
-  driverLicenceMessage="No driver license found";
-  vehicleIdentificationMessage="No vehicle identification found";
+  driverLicence: string="No file";
+  vehicleLicence: string="No file";
+  driverLicenceMessage: string="No driver license found";
+  vehicleIdentificationMessage: string="No vehicle identification found";
 
   constructor(private _snackBar: MatSnackBar, public dialog: MatDialog,private http: HttpClient,
               private _documentService : DocumentService, private driverService:DriverService){
@@ -110,7 +111,7 @@ export class DocumentsComponent implements OnInit{
         {next:(result)=>{
           if (this.driverDocument!=undefined)
           {
-          this.driverService.deleteDocuments(this.driverDocument.id).subscribe({next:()=>{
+          this.driverService.deleteDocuments(this.driverDocument.id).subscribe({next:(respond)=>{
               this.driverLicence=result.name;
               this.uploadedImageDriver = undefined;
               this._snackBar.open("Driver licence added successfully","OK");
@@ -133,7 +134,7 @@ export class DocumentsComponent implements OnInit{
         {next:(result)=>{
           if (this.vehicleDocument!=undefined) {
             this.driverService.deleteDocuments(this.vehicleDocument.id).subscribe({
-              next: () => {
+              next: (respond) => {
                 this.vehicleLicence = result.name;
                 this.uploadedImageVehicle = undefined;
                 this._snackBar.open("Vehicle identification added successfully", "OK");

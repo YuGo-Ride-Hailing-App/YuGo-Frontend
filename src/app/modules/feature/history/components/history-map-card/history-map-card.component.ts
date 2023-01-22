@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Inject} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MapService} from "../../../home/services/map.service";
 import * as L from "leaflet";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
@@ -9,7 +9,7 @@ import {RideInfo} from "../../../../shared/models/RideInfo";
   templateUrl: './history-map-card.component.html',
   styleUrls: ['./history-map-card.component.css']
 })
-export class HistoryMapCardComponent implements  AfterViewInit{
+export class HistoryMapCardComponent{
   private map:any;
   public ride: RideInfo
   constructor(private mapService:MapService,@Inject(MAT_DIALOG_DATA) public data: any) {
@@ -40,7 +40,8 @@ export class HistoryMapCardComponent implements  AfterViewInit{
           .addTo(this.map)
           .bindPopup('Pozdrav iz Strazilovske 19.')
           .openPopup();
-      }
+      },
+      error: () => {},
     });
   }
   route(): void {
@@ -51,7 +52,7 @@ export class HistoryMapCardComponent implements  AfterViewInit{
 
 
   ngAfterViewInit(): void {
-    const DefaultIcon = L.icon({
+    let DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
     });
 

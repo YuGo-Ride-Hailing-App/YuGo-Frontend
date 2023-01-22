@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../../enviroments/environment";
 import {UsersInfoPaged} from "../../feature/account/models/UsersInfoPaged";
+import {RidesPaged} from "../../feature/history/models/RidesPaged";
 import {UserInfo} from "../models/UserInfo";
+import {JwtHelperService} from "@auth0/angular-jwt";
+import {ReviewsPerRideInfo} from "../../feature/history/models/ReviewPerPassengerInfo";
 import {UserSimpleInfo} from "../models/UserSimpleInfo";
 
 @Injectable({

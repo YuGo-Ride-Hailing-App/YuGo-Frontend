@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit{
   constructor(private authService:AuthService){
   }
 
-  role?:string;
+  role?:String;
 
   ngOnInit(): void {
     this.authService.userState$.subscribe(value => {
