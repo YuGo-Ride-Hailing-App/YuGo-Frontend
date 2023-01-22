@@ -65,7 +65,7 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <p class="errorMessage" *ngIf="this.accountErrorMessage != ''">{{accountErrorMessage}}</p>
+                <p class="errorMessage" *ngIf="this.accountErrorMessage !==''">{{accountErrorMessage}}</p>
                 <div class="d-flex justify-content-center">
                   <button [disabled]="!registrationForm.valid" class="w-50" mat-raised-button color="accent"
                           data-bs-target="#driverCarousel" data-bs-slide="next">Next</button>
@@ -127,7 +127,7 @@
                 </mat-slider>
               </div>
 
-              <p class="errorMessage" *ngIf="this.vehicleErrorMessage != ''">{{accountErrorMessage}}</p>
+              <p class="errorMessage" *ngIf="this.vehicleErrorMessage !== ''">{{accountErrorMessage}}</p>
               <div class="d-inline-flex w-100">
                 <div class="w-50 pe-3">
                   <button mat-raised-button color="warn" class="w-100"

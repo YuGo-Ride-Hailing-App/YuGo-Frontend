@@ -18,7 +18,6 @@ export class DestinationPickerService {
   currentFromAddress:Observable<LocationInfo | undefined> = this.fromAddressPublisher.asObservable();
   currentToAddress:Observable<LocationInfo | undefined> = this.toAddressPublisher.asObservable();
 
-  constructor() { }
 
   updateFromAddress(address?:LocationInfo){
     this.fromAddress = address;

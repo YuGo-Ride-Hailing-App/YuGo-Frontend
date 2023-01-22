@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../../../../core/services/auth.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -8,8 +7,8 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit{
-  public role: string = "";
-  public userId: number = -1;
+  public role = "";
+  public userId = -1;
 
   constructor(private _route: ActivatedRoute) {}
 

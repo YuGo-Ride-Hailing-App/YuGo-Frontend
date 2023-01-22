@@ -1,0 +1,35 @@
+<div>
+  <h1 class="w-100 mb-4">Add people to ride.</h1>
+  <div class="row">
+    <form [formGroup]="addPassengersForm" id="addPassengersForm" class="mb-4">
+        <mat-form-field id="addPassengersFormField">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput placeholder="Example@example.com" formControlName="email" name="email">
+          <mat-error *ngIf="addPassengersForm.controls['email'].hasError('email')">
+            Not a valid email address
+          </mat-error>
+          <mat-error *ngIf="addPassengersForm.controls['email'].hasError('duplicateEmail')">
+            Person is already added
+          </mat-error>
+          <mat-error *ngIf="addPassengersForm.controls['email'].hasError('wrongEmail')">
+            Person with given email doesn't exist
+          </mat-error>
+          <mat-error *ngIf="addPassengersForm.controls['email'].hasError('selfReference')">
+            You cannot add yourself to the ride
+          </mat-error>
+        </mat-form-field>
+        <button id="addPassengerBtn" type="submit" color="accent" mat-fab [disabled]="addPassengersForm.invalid" (click)="addPassenger()">
+          <mat-icon>add</mat-icon>
+        </button>
+    </form>
+  </div>
+  <div *ngFor="let passenger of ridePassengers; let i = index">
+    <app-email-list-card [id]="i" [email]=passenger.email (removeItemEmitter)="removeItem($event)" ></app-email-list-card>
+  </div>
+  <div class="row ps-3 pe-3 mt-4">
+    <button mat-flat-button color="accent" class="col-1 me-2" (click)="previousFormPage()">
+      <mat-icon id="previousPageBtnIcon">keyboard_arrow_left</mat-icon>
+    </button>
+    <button mat-flat-button color="accent" class="col" (click)="nextFormPage()">Continue</button>
+  </div>
+</div>

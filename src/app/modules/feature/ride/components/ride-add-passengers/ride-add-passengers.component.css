@@ -1,0 +1,18 @@
+h1{
+  font-size: 35px;
+  color: white;
+}
+mat-icon{
+  margin: 0 !important;
+  color: black;
+}
+#addPassengersForm{
+  display: flex;
+  flex-direction: row;
+}
+#addPassengersFormField{
+  flex-grow: 1;
+}
+#addPassengerBtn{
+  margin-left: 20px;
+}

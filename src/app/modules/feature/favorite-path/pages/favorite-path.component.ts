@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FavoritePathCardComponent} from "../components/favorite-path-card/favorite-path-card.component";
 
 @Component({
   selector: 'app-favorite-path',

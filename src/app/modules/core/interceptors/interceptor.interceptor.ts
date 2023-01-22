@@ -48,7 +48,7 @@ export class Interceptor implements HttpInterceptor {
     }
   }
 
-  private isRefreshing: boolean = false;
+  private isRefreshing = false;
   private handle401Error() {
     if (!this.isRefreshing) {
       this.isRefreshing = true;

@@ -7,6 +7,7 @@ import {AuthService} from "../../../core/services/auth.service";
 import {Router} from "@angular/router";
 import {Subject} from "rxjs";
 import {RideInfo} from "../../../shared/models/RideInfo";
+import {UserSimpleInfo} from "../../../shared/models/UserSimpleInfo";
 
 @Component({
   selector: 'app-ride',
@@ -14,13 +15,15 @@ import {RideInfo} from "../../../shared/models/RideInfo";
   styleUrls: ['./ride.component.css']
 })
 export class RideComponent {
-  formPageIndex: number = 0;
+  formPageIndex = 0;
 
   rideDateTime?:Date;
   rideProperties?:RideProperties;
   fromAddress?:LocationInfo;
   toAddress?:LocationInfo;
-  searchingDriver:boolean = false;
+  passengers?:UserSimpleInfo[];
+
+  searchingDriver = false;
 
   errorMessageEvent:Subject<string> = new Subject<string>();
   rideFoundEvent:Subject<RideInfo> = new Subject<RideInfo>();
@@ -28,15 +31,11 @@ export class RideComponent {
   constructor(private rideService:RideService, private authService:AuthService, private router: Router) {
   }
 
-  test(selectedDateTime:Date){
-    console.log(selectedDateTime);
-    this.rideDateTime = selectedDateTime;
-  }
   switchFormPage(switchDirection:number){
-    if(this.formPageIndex + switchDirection > 2){
+    if(this.formPageIndex + switchDirection > 3){
       this.formPageIndex += switchDirection;
       this.searchingDriver = true;
-      this.bookRide().then(_ => {
+      this.bookRide().then(() => {
         //this.formPageIndex = 0;
       });
     }
@@ -51,9 +50,10 @@ export class RideComponent {
   }
 
   async bookRide(){
-    let ride:RideBooking = {
+    console.log(this.passengers);
+    const ride:RideBooking = {
       locations:[{departure:this.fromAddress!, destination:this.toAddress!}],
-      passengers:[{id:this.authService.getId(), email:""}],
+      passengers:this.passengers!,
       vehicleType:this.rideProperties!.vehicleTypeName,
       babyTransport:this.rideProperties!.includeBabies,
       petTransport:this.rideProperties!.includePets,

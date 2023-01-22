@@ -1,32 +1,8 @@
 <div class="container-xxl pt-lg-4 pt-3">
   <div class="cards-wrapper">
-    <mat-card class="request-card" *ngFor="let panic of dataSourceObservable | async">
-      <p class="text-end me-3">{{panic.time | date:"dd-MMM-yyyy HH:mm"}}</p>
-
-      <div class="row row-cols-md-2">
-        <div class="col-6 align-content-start ps-5">
-          <p class="text-start m-0" style="color: #f24237">Pressed by: </p>
-          <h2 class="pt-1 mb-0 text-start">{{panic.user.name}} {{panic.user.surname}}</h2>
-          <div class="d-flex">
-            <mat-icon class="align-self-center me-2">email</mat-icon>
-            <h5 class="text-center" style="color:#c7c7c7">{{panic.user.email}}</h5>
-          </div>
-          <div class="d-flex pb-2">
-            <mat-icon class="me-2">phone</mat-icon>
-            <h5 class="text-center" style="color:#c7c7c7">{{panic.user.telephoneNumber}}</h5>
-          </div>
-        </div>
-        <div class="col-6 d-flex align-items-center justify-content-center">
-          <button mat-flat-button color="accent">Show ride info</button>
-        </div>
-      </div>
-
-      <mat-divider class="divider"></mat-divider>
-      <div class="container-fluid my-2">
-        <p class="text-start m-0 text-center text-uppercase" style="color: #f24237">Reason: </p>
-        <p class="text-start" style="overflow-wrap:break-word">{{panic.reason}}</p>
-      </div>
-    </mat-card>
+    <app-panic-card class="panic-card" *ngFor="let panic of dataSourceObservable | async"
+                    [panic]="panic" [notification]="false">
+    </app-panic-card>
   </div>
 </div>
 

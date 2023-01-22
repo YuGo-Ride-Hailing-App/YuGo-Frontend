@@ -17,6 +17,10 @@ export class PassengerService {
     return this.http.get<UserInfo>(environment.apiHost + `passenger/${userId}`);
   }
 
+  getPassengerByEmail(email:string):Observable<UserInfo>{
+    return this.http.get<UserInfo>(environment.apiHost + `passenger/email/${email}`);
+  }
+
   createPassenger(values: any) : Observable<UserInfo>{
     return this.http.post<UserInfo>(environment.apiHost + `passenger`, values);
   }

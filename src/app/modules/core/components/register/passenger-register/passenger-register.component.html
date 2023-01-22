@@ -63,7 +63,7 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <p class="errorMessage" *ngIf="this.errorMessage != ''">{{errorMessage}}</p>
+          <p class="errorMessage" *ngIf="this.errorMessage !== ''">{{errorMessage}}</p>
           <div mat-dialog-actions class="d-flex justify-content-center">
             <button [disabled]="!registrationForm.valid" class="w-50" type="submit" mat-flat-button
                     color="accent">Sign Up</button>

@@ -1,4 +1,4 @@
-<div *ngIf="vehicleType" class="w-100 d-flex flex-row p-1" [ngClass]="{checkedCard:isChecked==true}"  (click)="onClick()">
+<div *ngIf="vehicleType" class="w-100 d-flex flex-row p-1" [ngClass]="{checkedCard:isChecked===true}"  (click)="onClick()">
   <img [src]="image"/>
   <div class="vstack col ms-3 align-self-center">
     <h2>{{vehicleType.vehicleTypeName}}</h2>

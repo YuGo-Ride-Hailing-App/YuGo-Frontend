@@ -1,0 +1,29 @@
+<div id="inride-panel" class="p-4">
+  <div class="d-flex flex-row justify-content-between ps-1 pe-1">
+    <img src="assets/img/map.png" class="profile-pic rounded-circle me-4" alt="Profile Picture">
+    <button class="rounded-circle ms-5" id="panic-btn">PANIC</button>
+  </div>
+  <div class="d-flex flex-row mt-4 mb-4" id="path-div">
+    <div class="me-2 mb-2 mt-3 d-flex flex-column justify-content-between position-relative align-items-center">
+      <mat-icon>location_on</mat-icon>
+      <div id="progress-bar-container">
+        <div id="progress-bar-state" [style.height]="progressBarHeight"></div>
+      </div>
+      <mat-icon>location_on</mat-icon>
+    </div>
+    <div class="flex-grow-1 d-flex flex-column justify-content-between">
+      <p>{{departureAddress}}</p>
+      <p>{{destinationAddress}}</p>
+    </div>
+  </div>
+  <div class="d-flex flex-row justify-content-between">
+    <div class="ride-properties me-2">
+      <mat-icon>map</mat-icon>
+      <p>{{rideLength}}</p>
+    </div>
+    <div class="ride-properties ms-2">
+      <mat-icon>access_time</mat-icon>
+      <p>{{rideEstTime}}</p>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../../../../enviroments/environment";
 import {HttpClient} from "@angular/common/http";
-import {VehicleType, VehicleTypeCardData} from "../components/vehicle-type-card/vehicle-type-card.component";
+import {VehicleType} from "../components/vehicle-type-card/vehicle-type-card.component";
 import {ImageService} from "../../../core/services/image.service";
 
 @Injectable({

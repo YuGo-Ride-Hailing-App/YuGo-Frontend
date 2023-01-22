@@ -53,12 +53,12 @@
       <mat-icon>today</mat-icon>
       <label class="px-2">{{ride.startTime | date: 'dd-MMM-yyyy HH:mm'}}</label>
     </div>
-    <div *ngIf="ride.endTime!=null" class="d-flex align-items-center pt-3 justify-content-center" >
+    <div *ngIf="ride.endTime!==null" class="d-flex align-items-center pt-3 justify-content-center" >
       <mat-icon>event</mat-icon>
       <label class="px-2">{{ride.endTime | date: 'dd-MMM-yyyy HH:mm'}}</label>
     </div>
   </div>
-  <div id="button-container"class="w-100 d-flex pt-4 justify-content-between">
+  <div id="button-container"class="w-100 d-flex pt-4 justify-content-between" *ngIf="historyPreview">
     <h2 class="px-2">${{ride.totalCost}}</h2>
     <button (click)="changeIcon()" mat-flat-button class="mx-2 rounded-pill fw-bold float-end" color="accent">Add to favorites</button>
     <button mat-flat-button class="mx-2 rounded-pill fw-bold float-end" color="accent">Create Ride</button>

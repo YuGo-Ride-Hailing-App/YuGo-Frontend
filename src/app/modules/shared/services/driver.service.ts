@@ -37,7 +37,7 @@ export class DriverService {
       });
   }
 
-  createDocument(driverId: number, file: FormData, type: String):Observable<DocumentInfo>{
+  createDocument(driverId: number, file: FormData, type: string):Observable<DocumentInfo>{
     return this.http.post<DocumentInfo>(environment.apiHost+`driver/${driverId}/document/${type}`,file);
   }
 

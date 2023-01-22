@@ -14,6 +14,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import {VehicleModule} from "../feature/vehicle/vehicle.module";
 import { DriverRegisterComponent } from './components/register/driver-register/driver-register.component';
 import { AccountActivationComponent } from './components/account-activation/account-activation.component';
+import {PanicModule} from "../feature/panic/panic.module";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AccountActivationComponent } from './components/account-activation/acco
     AccountModule,
     FavoritePathModule,
     RideModule,
-    VehicleModule
+    VehicleModule,
+    PanicModule
   ]
 })
 export class CoreModule {

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input} from '@angular/core';
+import { Component, Input} from '@angular/core';
 import {
   AbstractControl,
   AsyncValidatorFn,
@@ -22,11 +22,11 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class PasswordComponent{
   @Input()
-  public userId: number = -1;
+  public userId = -1;
   passwordForm : FormGroup;
   editEnabled: boolean;
 
-  errorMessage:string = '';
+  errorMessage = '';
   constructor(private _snackBar: MatSnackBar, private _userService : UserService, private _authService: AuthService, private _router: Router) {
     this.passwordForm = new FormGroup({
       currentPassword: new FormControl('', [Validators.required]),
@@ -45,7 +45,7 @@ export class PasswordComponent{
       if(control.value.length > 20){
         return {maxLength:{value:control.value}};
       }
-      let whiteSpaceRegex:RegExp = new RegExp("^(?!.* ).{6,20}$")
+      const whiteSpaceRegex = new RegExp("^(?!.* ).{6,20}$")
       if(!whiteSpaceRegex.test(control.value)){
         return {whitespace:{value:control.value}};
       }
@@ -88,19 +88,18 @@ export class PasswordComponent{
       "oldPassword": this.passwordForm.controls['currentPassword'].value,
       "newPassword": this.passwordForm.controls['newPassword'].value
     }).pipe(take(1)).subscribe({
-      next: (response) => {
+      next: () => {
         this.cancelEdit();
         this._snackBar.open("Password successfully changed!", "OK");
         if (this.userId == this._authService.getId()){
           this._authService.logOut().subscribe({
-            next: (result) => {
+            next: () => {
               localStorage.clear()
               this._authService.setUser();
-              this._router.navigate(['/']);
-            },
-            error: (error) => {
-
-            },
+              this._router.navigate(['/']).then(() => {
+                window.location.reload();
+              });
+            }
           });
         }
       },

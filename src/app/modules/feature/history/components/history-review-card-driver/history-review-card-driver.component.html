@@ -1,17 +1,17 @@
 <mat-card style="border-radius: 25px; height: 100%;  background-color: #26272b;">
 <div id="carouselExampleControls" class="carousel slide h-100" data-bs-ride="carousel">
   <div class="carousel-inner" >
-    <div class="carousel-item" *ngFor="let review of obs|async; let index = index" [class.active]="index == 0">
+    <div class="carousel-item" *ngFor="let review of obs|async; let index = index" [class.active]="index === 0">
       <div class="p-4 justify-content-center" >
         <h5 class="text-center mb-1">{{review.typeOfReview}}</h5>
         <p class="mb-0">By {{review.passengerName}}</p>
         <div class="container-rating w-100 text-center">
           <div class="starrating  risingstar d-flex justify-content-center flex-row-reverse">
-            <input type="radio" id="star5r" name="ratingr+{{review.reviewInfoOut.id}}" value="5" [checked]="review.reviewInfoOut.rating==5"  /><label for="star5r" title="5 star"></label>
-            <input type="radio" id="star4r" name="ratingr+{{review.reviewInfoOut.id}}" value="4" [checked]="review.reviewInfoOut.rating==4"/><label for="star4r" title="4 star"></label>
-            <input type="radio" id="star3r" name="ratingr+{{review.reviewInfoOut.id}}" value="3" [checked]="review.reviewInfoOut.rating==3"/><label for="star3r" title="3 star"></label>
-            <input type="radio" id="star2r" name="ratingr+{{review.reviewInfoOut.id}}" value="2" [checked]="review.reviewInfoOut.rating==2"/><label for="star2r" title="2 star"></label>
-            <input type="radio" id="star1r" name="ratingr+{{review.reviewInfoOut.id}}" value="1" [checked]="review.reviewInfoOut.rating==1"/><label for="star1r" title="1 star"></label>
+            <input type="radio" id="star5r" name="ratingr+{{review.reviewInfoOut.id}}" value="5" [checked]="review.reviewInfoOut.rating===5"  /><label for="star5r" title="5 star"></label>
+            <input type="radio" id="star4r" name="ratingr+{{review.reviewInfoOut.id}}" value="4" [checked]="review.reviewInfoOut.rating===4"/><label for="star4r" title="4 star"></label>
+            <input type="radio" id="star3r" name="ratingr+{{review.reviewInfoOut.id}}" value="3" [checked]="review.reviewInfoOut.rating===3"/><label for="star3r" title="3 star"></label>
+            <input type="radio" id="star2r" name="ratingr+{{review.reviewInfoOut.id}}" value="2" [checked]="review.reviewInfoOut.rating===2"/><label for="star2r" title="2 star"></label>
+            <input type="radio" id="star1r" name="ratingr+{{review.reviewInfoOut.id}}" value="1" [checked]="review.reviewInfoOut.rating===1"/><label for="star1r" title="1 star"></label>
           </div>
         </div>
         <p class="fst-italic">{{review.reviewInfoOut.comment}}</p>

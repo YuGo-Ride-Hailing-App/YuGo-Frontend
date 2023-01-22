@@ -13,7 +13,6 @@ import {AuthService} from "../../services/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable, of, take} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
-import {UserInfo} from "../../../shared/models/UserInfo";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -22,10 +21,10 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent implements OnInit{
-  code:number=-1;
+  code=-1;
   passwordForm : FormGroup;
 
-  errorMessage:string = '';
+  errorMessage = '';
   constructor(private _route: ActivatedRoute,private _snackBar:MatSnackBar,private _userService : UserService, private _authService: AuthService, private _router: Router) {
     this.passwordForm = new FormGroup({
       newPassword: new FormControl('', [Validators.required, this.passwordValidator()]),
@@ -46,7 +45,7 @@ export class ForgotPasswordComponent implements OnInit{
       if(control.value.length > 20){
         return {maxLength:{value:control.value}};
       }
-      let whiteSpaceRegex:RegExp = new RegExp("^(?!.* ).{6,20}$")
+      const whiteSpaceRegex = new RegExp("^(?!.* ).{6,20}$")
       if(!whiteSpaceRegex.test(control.value)){
         return {whitespace:{value:control.value}};
       }
@@ -74,7 +73,7 @@ export class ForgotPasswordComponent implements OnInit{
     }
     else {
       this._userService.resetPasswordWithCode(this.code,this.passwordForm.value.newPassword).pipe(take(1)).subscribe({
-        next: (info) => {
+        next: () => {
           this._snackBar.open("Password Changed Successfully", "OK");
           this._router.navigate(['/']);
         },

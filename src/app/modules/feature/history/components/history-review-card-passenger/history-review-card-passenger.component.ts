@@ -1,30 +1,23 @@
-import {Component, DoCheck, Inject} from '@angular/core';
-import {HttpErrorResponse} from "@angular/common/http";
+import {Component, Inject} from '@angular/core';
 import {ReviewService} from "../../../../shared/services/review.service";
-import {PassengerService} from "../../../../shared/services/passenger.service";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {RideInfo} from "../../../../shared/models/RideInfo";
-import {MatTableDataSource} from "@angular/material/table";
-import {Observable} from "rxjs";
-import {ReviewOut} from "../history-review-card-driver/history-review-card-driver.component";
-import {AuthService} from "../../../../core/services/auth.service";
 import {ReviewInfoOut} from "../../models/ReviewInfoOut";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-history-review-card-passenger',
   templateUrl: './history-review-card-passenger.component.html',
   styleUrls: ['./history-review-card-passenger.component.css']
 })
-export class HistoryReviewCardPassengerComponent implements DoCheck {
+export class HistoryReviewCardPassengerComponent  {
   foundReview: boolean[] = [false, false];
   enabledReview: boolean[] = [true, true];
   reviewList: ReviewInfoOut[] = [{rating: 0, id: 0} as ReviewInfoOut, {} as ReviewInfoOut];
   vehicleForm: FormGroup;
   rideForm: FormGroup;
-  vehicleRating: number = 0;
-  rideRating: number = 0;
+  vehicleRating = 0;
+  rideRating = 0;
   ride: RideInfo;
   userId: number;
   role: string;
@@ -51,9 +44,6 @@ export class HistoryReviewCardPassengerComponent implements DoCheck {
     });
     this.getReviews();
 
-  }
-
-  ngDoCheck(): void {
   }
 
 
@@ -118,10 +108,6 @@ export class HistoryReviewCardPassengerComponent implements DoCheck {
           }
 
 
-        },
-        error: (error) => {
-          if (error instanceof HttpErrorResponse) {
-          }
         }
       })
   }
@@ -132,11 +118,11 @@ export class HistoryReviewCardPassengerComponent implements DoCheck {
   }
 
   dateToString(date: Date): string {
-    let dateString = date.toString().split(",");
+    const dateString = date.toString().split(",");
     return [dateString[2], dateString[1], dateString[0]].join(".") + ". " + [dateString[3], dateString[4]].join(":");
   }
   dateToStringConversion(date: Date): string {
-    let dateString = date.toString().split(",");
+    const dateString = date.toString().split(",");
     return [dateString[1], dateString[2], dateString[0]].join(".") + ". " + [dateString[3], dateString[4]].join(":");
   }
 
@@ -160,17 +146,11 @@ export class HistoryReviewCardPassengerComponent implements DoCheck {
       this.reviewService.createVehicleReview(this.ride.id, rating, this.vehicleForm.value["commentv"]).subscribe({
         next: () => {
 
-        },
-        error: (error) => {
-          if (error instanceof HttpErrorResponse) {
-
-          }
         }
       });
       this.vehicleForm.disable();
       document.getElementById("submit-vehicle")!.hidden = true;
       this.enabledReview[0] = false;
-      this.ngDoCheck();
       document.getElementById("stars-vehicle")?.classList.remove("invalid-error");
 
     }else {
@@ -192,19 +172,10 @@ export class HistoryReviewCardPassengerComponent implements DoCheck {
       rating = 1;
     if (rating != 0) {
       this.reviewService.createRideReview(this.ride.id, rating, this.rideForm.value["commentr"]).subscribe({
-        next: () => {
-
-        },
-        error: (error) => {
-          if (error instanceof HttpErrorResponse) {
-
-          }
-        }
       });
       this.rideForm.disable();
       document.getElementById("submit-ride")!.hidden = true;
       this.enabledReview[1] = false;
-      this.ngDoCheck();
       document.getElementById("stars-ride")?.classList.remove("invalid-error");
 
     }

@@ -3,7 +3,6 @@ import {MatTableDataSource} from "@angular/material/table";
 import {Observable, take} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
-import {HttpErrorResponse} from "@angular/common/http";
 import {Panic} from "../models/Panic";
 import {PanicService} from "../../../shared/services/panic.service";
 
@@ -39,10 +38,6 @@ export class UsersPanicsComponent implements OnInit, AfterViewInit{
           this.panicsPaginator.pageIndex = this.currentPage;
           this.panicsPaginator.length = results.totalCount;
         });
-      },
-      error: (error) => {
-        if (error instanceof HttpErrorResponse) {
-        }
       }
     });
   }

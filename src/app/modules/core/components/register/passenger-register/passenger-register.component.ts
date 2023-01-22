@@ -31,9 +31,9 @@ export class PassengerRegisterComponent implements AfterViewInit{
       this.registrationForm.controls.confirmPassword.updateValueAndValidity();
     });
   }
-  TEL_REGEX:string = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s./0-9]{0,10}$";
-  errorMessage:string = '';
-  isFinished:boolean = false;
+  TEL_REGEX = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s./0-9]{0,10}$";
+  errorMessage = '';
+  isFinished = false;
   registrationForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, this.passwordValidator()]),
@@ -52,7 +52,7 @@ export class PassengerRegisterComponent implements AfterViewInit{
       if(control.value.length > 20){
         return {maxLength:{value:control.value}};
       }
-      let whiteSpaceRegex:RegExp = new RegExp("^(?!.* ).{6,20}$")
+      const whiteSpaceRegex = new RegExp("^(?!.* ).{6,20}$")
       if(!whiteSpaceRegex.test(control.value)){
         return {whitespace:{value:control.value}};
       }
@@ -73,7 +73,7 @@ export class PassengerRegisterComponent implements AfterViewInit{
     };
   }
   onSubmit(){
-    let user:UserRegistration = {
+    const user:UserRegistration = {
       name:this.registrationForm.controls.firstName.value!,
       surname:this.registrationForm.controls.lastName.value!,
       address:this.registrationForm.controls.address.value!,

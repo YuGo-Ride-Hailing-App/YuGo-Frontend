@@ -18,7 +18,7 @@
             </div>
 
             <div mat-dialog-actions class="d-flex justify-content-center mt-2 pb-0">
-              <p class="errorMessage mt-2 mb-2" *ngIf="this.errorMessage != ''">{{errorMessage}}</p>
+              <p class="errorMessage mt-2 mb-2" *ngIf="this.errorMessage !== ''">{{errorMessage}}</p>
               <button class="w-50" type="submit" mat-flat-button color="accent" [disabled]="!loginForm.value.password || !loginForm.value.email">Login</button>
             </div>
             <div class="d-flex justify-content-center align-bottom mt-1">

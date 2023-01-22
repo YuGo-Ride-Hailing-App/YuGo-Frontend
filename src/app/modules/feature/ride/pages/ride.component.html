@@ -1,6 +1,7 @@
 <div id="contentDiv" class="pb-lg-5 pt-lg-5 ps-lg-4 pe-lg-4">
-  <app-ride-pick-destination [ngClass]="{hidden:formPageIndex!=0}" (changeFormPageEmitter)="switchFormPage($event)" (routeChangedEvent)="routeChanged($event)"></app-ride-pick-destination>
-  <app-ride-pick-properties [ngClass]="{hidden:formPageIndex!=1}" (changeFormPageEmitter)="switchFormPage($event)" (ridePropertiesChangedEvent)="rideProperties=$event"></app-ride-pick-properties>
-  <app-ride-pick-time [ngClass]="{hidden:formPageIndex!=2}" (changeFormPageEmitter)="switchFormPage($event)" (rideDateTimeChangedEvent)="test($event)"></app-ride-pick-time>
+  <app-ride-pick-destination [ngClass]="{hidden:formPageIndex!==0}" (changeFormPageEmitter)="switchFormPage($event)" (routeChangedEvent)="routeChanged($event)"></app-ride-pick-destination>
+  <app-ride-pick-properties [ngClass]="{hidden:formPageIndex!==1}" (changeFormPageEmitter)="switchFormPage($event)" (ridePropertiesChangedEvent)="rideProperties=$event"></app-ride-pick-properties>
+  <app-ride-add-passengers [ngClass]="{hidden:formPageIndex!==2}" (changeFormPageEmitter)="switchFormPage($event)" (passengersChangedEvent)="passengers=$event"></app-ride-add-passengers>
+  <app-ride-pick-time [ngClass]="{hidden:formPageIndex!==3}" (changeFormPageEmitter)="switchFormPage($event)" (rideDateTimeChangedEvent)="rideDateTime = $event"></app-ride-pick-time>
   <app-searching-driver-screen [rideFoundEvent]="rideFoundEvent.asObservable()" [errorMessageEvent]="errorMessageEvent.asObservable()"  *ngIf="searchingDriver"></app-searching-driver-screen>
 </div>

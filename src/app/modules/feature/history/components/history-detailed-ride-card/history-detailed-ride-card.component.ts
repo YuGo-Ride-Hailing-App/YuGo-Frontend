@@ -1,8 +1,6 @@
 import {Component, Input, OnInit, SecurityContext} from '@angular/core';
-import {HttpErrorResponse} from "@angular/common/http";
 import {DriverService} from "../../../../shared/services/driver.service";
 import {PassengerService} from "../../../../shared/services/passenger.service";
-import {FavoritePathService} from "../../../../shared/services/favorite.path.service";
 import {MatDialog} from "@angular/material/dialog";
 import {FavoritePathInputComponent} from "../favorite-path-input/favorite-path-input.component";
 import {DomSanitizer} from "@angular/platform-browser";
@@ -16,15 +14,15 @@ import {ImageService} from "../../../../core/services/image.service";
 export class HistoryDetailedRideCardComponent implements OnInit{
   public icon = 'star_outlined';
   @Input() ride:any;
+  @Input() historyPreview = true;
   public profilePicture: any;
   public driverProfilePicture: any;
-  public ppp:any;
-
   public passengersProfilePics:Array<any>;
-  driverName:String="";
-  passengerName:String="";
+  driverName="";
+  passengerName="";
 
-  constructor(private _sanitizer: DomSanitizer,private _imageService: ImageService,private driverService:DriverService, public dialog: MatDialog, private passengerService: PassengerService, private favoritePathService:FavoritePathService) {
+  constructor(private _sanitizer: DomSanitizer,private _imageService: ImageService,private driverService:DriverService,
+              public dialog: MatDialog, private passengerService: PassengerService) {
     this.passengersProfilePics=[];
   }
   ngOnInit(){
@@ -46,22 +44,16 @@ export class HistoryDetailedRideCardComponent implements OnInit{
         });
     }
   }
-  padTo2Digits(num:number) {
-    return num.toString().padStart(2, '0');
-  }
 
   getDriver(){
     this.driverService.getDriver(this.ride.driver.id).subscribe(
       {next:(driver) => {
           this.driverName= driver.name+" "+driver.surname;
           this._imageService.getProfilePicture(driver.profilePicture).then(resp => {
-            let objectURL = URL.createObjectURL(resp);
+            const objectURL = URL.createObjectURL(resp);
             this.driverProfilePicture = this._sanitizer.bypassSecurityTrustUrl(objectURL);
           });
-        },
-        error: (error) => {
-          if (error instanceof HttpErrorResponse) {
-          }}})
+        }})
   }
 
   getPassenger(){
@@ -69,13 +61,10 @@ export class HistoryDetailedRideCardComponent implements OnInit{
       {next:(passenger) => {
           this.passengerName= passenger.name+" "+passenger.surname;
           this._imageService.getProfilePicture(passenger.profilePicture).then(resp => {
-            let objectURL = URL.createObjectURL(resp);
+            const objectURL = URL.createObjectURL(resp);
             this.profilePicture = this._sanitizer.bypassSecurityTrustUrl(objectURL);
           });
-        },
-        error: (error) => {
-          if (error instanceof HttpErrorResponse) {
-          }}})
+        }})
   }
   getPassengers(){
     for (let i = 0; i < this.ride.passengers.length; i++) {
@@ -84,15 +73,11 @@ export class HistoryDetailedRideCardComponent implements OnInit{
           next: (passenger) => {
             this.passengerName = passenger.name + " " + passenger.surname;
             this._imageService.getProfilePicture(passenger.profilePicture).then(resp => {
-              let objectURL = URL.createObjectURL(resp);
-              let dto={picture:this._sanitizer.bypassSecurityTrustUrl(objectURL),name:(passenger.name+" "+passenger.surname+"\n"+passenger.email)};
+              const objectURL = URL.createObjectURL(resp);
+              const dto={picture:this._sanitizer.bypassSecurityTrustUrl(objectURL),name:(passenger.name+" "+passenger.surname+"\n"+passenger.email + "\n" + passenger.telephoneNumber)};
               this.passengersProfilePics.push(dto);
 
             });
-          },
-          error: (error) => {
-            if (error instanceof HttpErrorResponse) {
-            }
           }
         })
     }

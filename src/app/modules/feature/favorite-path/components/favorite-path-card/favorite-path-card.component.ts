@@ -1,13 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
-import {RideInfo} from "../../../../shared/models/RideInfo";
 import {FavoritePathInfo} from "../../models/FavoritePathInfo";
 import {FavoritePathService} from "../../../../shared/services/favorite.path.service";
-import {AuthService} from "../../../../core/services/auth.service";
-import {
-  HistoryDetailedDialogComponent
-} from "../../../history/components/history-detailed-dialog/history-detailed-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {FavoritePathDetailedCardComponent} from "../favorite-path-detailed-card/favorite-path-detailed-card.component";
 
@@ -20,7 +15,7 @@ export class FavoritePathCardComponent implements OnInit{
 
   obs: Observable<any>;
   dataSource= new MatTableDataSource<FavoritePathInfo>();
-  constructor(private favoritePathService:FavoritePathService,private authService:AuthService, public dialog: MatDialog) {
+  constructor(private favoritePathService:FavoritePathService, public dialog: MatDialog) {
     this.obs = this.dataSource.connect();
   }
   ngOnInit() {
@@ -42,7 +37,7 @@ export class FavoritePathCardComponent implements OnInit{
   }
   deletePath(id:number,event:Event){
     event.stopPropagation();
-    this.favoritePathService.deleteFavoritePath(id).subscribe({next:(result)=>{
+    this.favoritePathService.deleteFavoritePath(id).subscribe({next:()=>{
       this.loadData();
       }})
   }

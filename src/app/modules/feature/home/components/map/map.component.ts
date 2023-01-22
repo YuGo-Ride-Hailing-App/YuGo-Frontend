@@ -1,12 +1,12 @@
 import {AfterViewInit, Component} from '@angular/core';
 import * as L from 'leaflet';
-import {Control, LatLng, latLng, LeafletMouseEvent, Marker} from 'leaflet';
+import {Control, LeafletMouseEvent, Marker} from 'leaflet';
 import 'leaflet-routing-machine';
 import {MapService} from "../../services/map.service";
 import {DestinationPickerService} from "../../../ride/services/destination-picker.service";
 import {LocationInfo} from "../../../../shared/models/LocationInfo";
 import {RideService} from "../../../ride/services/ride.service";
-import {Subscription, take} from "rxjs";
+import {Subscription} from "rxjs";
 import {PassengerRideNotificationsService} from "../../../ride/services/passenger-ride-notifications.service";
 import {DriverRideNotificationService} from "../../../ride/services/driver-ride-notification.service";
 
@@ -20,8 +20,8 @@ export class MapComponent implements AfterViewInit{
   private fromAddressMarker?:Marker;
   private driverLocationMarker?:Marker;
   private toAddressMarker?:Marker;
-  private canSelectFromAddress:boolean = false;
-  private canSelectToAddress:boolean = false;
+  private canSelectFromAddress = false;
+  private canSelectToAddress = false;
   private path?:Control;
   private driverLocationSubscription?:Subscription;
   constructor(private mapService:MapService,
@@ -59,7 +59,7 @@ export class MapComponent implements AfterViewInit{
   }
 
   ngAfterViewInit(): void {
-    let DefaultIcon = L.icon({
+    const DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
       iconAnchor:[12.5, 41]
     });
@@ -67,7 +67,7 @@ export class MapComponent implements AfterViewInit{
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
 
-    this.passengerRideService.rideAcceptedEvent.subscribe(ride => {
+    this.passengerRideService.rideAcceptedEvent.subscribe(() => {
       this.driverLocationSubscription = this.passengerRideService.driverLocationSubscriber.subscribe(coordinates => {
         if(this.driverLocationMarker){
           this.driverLocationMarker.setLatLng([coordinates.latitude, coordinates.longitude]);
@@ -76,7 +76,7 @@ export class MapComponent implements AfterViewInit{
         }
       });
     })
-    this.passengerRideService.endRideEvent.subscribe(ride => {
+    this.passengerRideService.endRideEvent.subscribe(() => {
       this.driverLocationSubscription?.unsubscribe();
       this.map.removeControl(this.driverLocationMarker);
       this.driverLocationMarker = undefined;
@@ -145,8 +145,8 @@ export class MapComponent implements AfterViewInit{
   }
   private checkForPath(){
     if(this.toAddressMarker && this.fromAddressMarker){
-      let fromLatlng:any = this.fromAddressMarker.getLatLng();
-      let toLatlng:any = this.toAddressMarker.getLatLng();
+      const fromLatlng:any = this.fromAddressMarker.getLatLng();
+      const toLatlng:any = this.toAddressMarker.getLatLng();
       this.route(fromLatlng.lat, fromLatlng.lng, toLatlng.lat, toLatlng.lng);
     }else{
       if(this.path){
@@ -158,7 +158,7 @@ export class MapComponent implements AfterViewInit{
   }
   private reverseAddressSearch(lat:number, lng:number): Promise<LocationInfo>{
     return new Promise<LocationInfo>( resolve => {
-        let address:LocationInfo = {latitude: 0, longitude: 0, address: ""};
+        const address:LocationInfo = {latitude: 0, longitude: 0, address: ""};
         this.mapService.reverseSearch(lat, lng).subscribe((val:any) => {
           address.address = val.display_name;
           address.latitude = lat;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {environment} from "../../../../enviroments/environment";
 import {HttpClient} from "@angular/common/http";
-import {ReviewPerPassengerInfo, ReviewsPerRideInfo} from "../../feature/history/models/ReviewPerPassengerInfo";
+import {ReviewPerPassengerInfo} from "../../feature/history/models/ReviewPerPassengerInfo";
 
 @Injectable({
   providedIn: 'root'

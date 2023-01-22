@@ -11,6 +11,10 @@ import { RecommendedLocationComponent } from './components/recommended-location/
 import { SearchingDriverScreenComponent } from './components/searching-driver-screen/searching-driver-screen.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { RideOfferCardComponent } from './components/ride-offer-card/ride-offer-card.component';
+import { RideAddPassengersComponent } from './components/ride-add-passengers/ride-add-passengers.component';
+import { EmailListCardComponent } from './components/email-list-card/email-list-card.component';
+import { InridePanelComponent } from './components/inride-panel/inride-panel.component';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [
@@ -21,16 +25,21 @@ import { RideOfferCardComponent } from './components/ride-offer-card/ride-offer-
     RidePickTimeComponent,
     RecommendedLocationComponent,
     SearchingDriverScreenComponent,
-    RideOfferCardComponent],
+    RideOfferCardComponent,
+    RideAddPassengersComponent,
+    EmailListCardComponent,
+    InridePanelComponent],
     exports: [
         RideComponent,
         RideOfferCardComponent,
+        InridePanelComponent,
     ],
-    imports: [
-        SharedModule,
-        MatCheckboxModule,
-        NgxMatTimepickerModule,
-        MatProgressSpinnerModule,
-    ]
+  imports: [
+    SharedModule,
+    MatCheckboxModule,
+    NgxMatTimepickerModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+  ]
 })
 export class RideModule {}

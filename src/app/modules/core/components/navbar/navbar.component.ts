@@ -6,7 +6,6 @@ import {AuthService} from "../../services/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {AccountActivationComponent} from "../account-activation/account-activation.component";
-import {RideOfferCardComponent} from "../../../feature/ride/components/ride-offer-card/ride-offer-card.component";
 
 @Component({
   selector: 'app-navbar',
@@ -14,8 +13,8 @@ import {RideOfferCardComponent} from "../../../feature/ride/components/ride-offe
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit{
-  role: string ="";
-  userId: number = -1;
+  role ="";
+  userId = -1;
   routeQueryParams: Subscription;
   loginDialog?: MatDialogRef<LoginComponent>;
   registerDialog?: MatDialogRef<PassengerRegisterComponent>;
@@ -53,7 +52,7 @@ export class NavbarComponent implements OnInit{
       minHeight: '420px',
       height:'50%'
     });
-    this.loginDialog.afterClosed().subscribe(result => {
+    this.loginDialog.afterClosed().subscribe(() => {
       this._router.navigate(['.'], {relativeTo: this._route});
       this.ngOnInit();
     });
@@ -65,7 +64,7 @@ export class NavbarComponent implements OnInit{
       minHeight: '500px',
       data: true
     });
-    this.registerDialog.afterClosed().subscribe(result => {
+    this.registerDialog.afterClosed().subscribe(() => {
       this._router.navigate(['.'], {relativeTo: this._route});
     });
   }
@@ -77,7 +76,7 @@ export class NavbarComponent implements OnInit{
       minHeight: '500px',
       height:'60%'
     });
-    this.accountActivationDialog.afterClosed().subscribe(result => {
+    this.accountActivationDialog.afterClosed().subscribe(() => {
       this._router.navigate(['.'], {relativeTo: this._route});
       this.ngOnInit();
     });
@@ -85,15 +84,19 @@ export class NavbarComponent implements OnInit{
 
   logOut(){
     this._authService.logOut().subscribe({
-      next: (result) => {
+      next: () => {
         localStorage.clear();
         this._authService.setUser();
-        this._router.navigate(['/']);
+        this._router.navigate(['/']).then(() => {
+          window.location.reload();
+        });
       },
-      error: (error) => {
+      error: () => {
         localStorage.clear();
         this._authService.setUser();
-        this._router.navigate(['/']);
+        this._router.navigate(['/']).then(() => {
+          window.location.reload();
+        });
       },
     });
 

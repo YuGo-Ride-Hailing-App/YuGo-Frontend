@@ -5,9 +5,6 @@
 #map-driver {
   height: 100%;
 }
-.mapContainer{
-  position: relative;
-}
-button{
+.to-front{
   z-index: 999;
 }

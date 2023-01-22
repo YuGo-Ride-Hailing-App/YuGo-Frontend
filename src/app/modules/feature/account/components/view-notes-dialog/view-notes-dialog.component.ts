@@ -6,7 +6,6 @@ import {MatTableDataSource} from "@angular/material/table";
 import {Note} from "../../models/Note";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
-import {HttpErrorResponse} from "@angular/common/http";
 import {take} from "rxjs";
 import {CreateNoteDialogComponent} from "../create-note-dialog/create-note-dialog.component";
 
@@ -44,11 +43,7 @@ export class ViewNotesDialogComponent implements OnInit, AfterViewInit{
           this.notesPaginator.pageIndex = this.currentPage;
           this.notesPaginator.length = info.totalCount;
         });
-      },
-      error: (error) => {
-        if (error instanceof HttpErrorResponse) {
-
-        }}})
+      },})
   }
 
   pageChanged(event: PageEvent) {

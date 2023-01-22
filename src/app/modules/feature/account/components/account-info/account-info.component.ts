@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../../shared/services/user.service";
-import {HttpErrorResponse} from "@angular/common/http";
 import {take} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ImageService} from "../../../../core/services/image.service";
@@ -14,14 +13,14 @@ import {DomSanitizer} from "@angular/platform-browser";
 })
 export class AccountInfoComponent implements OnInit{
   @Input()
-  public userId: number = -1;
+  public userId = -1;
   @Input()
-  public role: string = "";
+  public role = "";
   public accountInfoForm : FormGroup;
   public editEnabled: boolean;
   public profilePicture: any;
   public uploadedImage: any
-  TEL_REGEX:string = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s./0-9]{0,10}$";
+  TEL_REGEX = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s./0-9]{0,10}$";
   constructor(private _sanitizer: DomSanitizer, private _snackBar: MatSnackBar, private _imageService: ImageService, private _userService: UserService) {
     this.accountInfoForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -51,13 +50,9 @@ export class AccountInfoComponent implements OnInit{
           email: info.email,
         });
         this._imageService.getProfilePicture(this.accountInfoForm.controls['profilePicture'].value).then(resp => {
-            let objectURL = URL.createObjectURL(resp);
+            const objectURL = URL.createObjectURL(resp);
             this.profilePicture = this._sanitizer.bypassSecurityTrustUrl(objectURL);
-        });},
-      error: (error) => {
-        if (error instanceof HttpErrorResponse) {
-
-        }}})
+        });}})
   }
 
   enableEdit() : void{
@@ -81,32 +76,20 @@ export class AccountInfoComponent implements OnInit{
           this.accountInfoForm.controls['profilePicture'].patchValue(result.pictureName);
           this._userService.updateUser(this.userId, this.role, this.accountInfoForm.value).pipe(take(1)).subscribe(
             {
-              next: (info) => {
+              next: () => {
                 this.loadUserData();
                 this._snackBar.open("Account updated successfully!", "OK");
-              },
-              error: (error) => {
-                if (error instanceof HttpErrorResponse) {
-
-                }
               }
             });
-        },
-        error: () => {
         }
       })
     }
     else{
       this._userService.updateUser(this.userId, this.role, this.accountInfoForm.value).pipe(take(1)).subscribe(
         {
-          next: (info) => {
+          next: () => {
             this.loadUserData();
             this._snackBar.open("Account updated successfully!", "OK");
-          },
-          error: (error) => {
-            if (error instanceof HttpErrorResponse) {
-
-            }
           }
         });
     }

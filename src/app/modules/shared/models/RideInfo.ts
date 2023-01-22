@@ -16,5 +16,5 @@ export interface RideInfo {
   babyTransport: boolean;
   petTransport: boolean;
   rejection: RejectionInfo;
-  status: String;
+  status: string;
 }

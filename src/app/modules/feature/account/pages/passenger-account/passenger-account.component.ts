@@ -7,10 +7,8 @@ import {Component, Input} from '@angular/core';
 })
 export class PassengerAccountComponent {
   @Input()
-  public userId: number = -1;
+  public userId = -1;
   @Input()
-  public role: string = "";
-  constructor() {
-  }
+  public role = "";
 
 }

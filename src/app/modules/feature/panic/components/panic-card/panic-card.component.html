@@ -1,0 +1,35 @@
+<mat-card class="h-100 w-100 card-style">
+  <p class="text-end me-3">{{panic.time | date:"dd-MMM-yyyy HH:mm"}}</p>
+
+  <div class="row row-cols-md-2">
+    <div class="col-6 align-content-start ps-5">
+      <p class="text-start m-0" style="color: #f24237">Pressed by: </p>
+      <h2 class="pt-1 mb-0 text-start">{{panic.user.name}} {{panic.user.surname}}</h2>
+      <div class="d-flex">
+        <mat-icon class="align-self-center me-2">email</mat-icon>
+        <h5 class="text-center" style="color:#c7c7c7">{{panic.user.email}}</h5>
+      </div>
+      <div class="d-flex pb-2">
+        <mat-icon class="me-2">phone</mat-icon>
+        <h5 class="text-center" style="color:#c7c7c7">{{panic.user.telephoneNumber}}</h5>
+      </div>
+    </div>
+    <div class="col-6 d-flex align-items-center justify-content-center">
+      <button mat-flat-button color="accent" (click)="openRidePreview()">
+        <mat-icon>directions_car</mat-icon>Ride info
+      </button>
+    </div>
+  </div>
+
+  <mat-divider class="divider"></mat-divider>
+  <div class="container-fluid my-2">
+    <p class="text-start m-0 text-center text-uppercase" style="color: #f24237">Reason: </p>
+    <p class="text-start" style="overflow-wrap:break-word">{{panic.reason}}</p>
+  </div>
+
+  <div *ngIf="notification" mat-dialog-close="" class="text-center m-3">
+    <button mat-flat-button color="warn" routerLink="/home">
+      <mat-icon>map</mat-icon>Show map
+    </button>
+  </div>
+</mat-card>

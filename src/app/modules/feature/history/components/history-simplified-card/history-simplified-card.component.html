@@ -53,7 +53,7 @@
           <p class="m-0 p-1">{{ride.startTime | date: 'HH:mm'}}</p>
         </div>
       </div>
-      <div *ngIf="ride.endTime!=null" class="row h-50">
+      <div *ngIf="ride.endTime!==null" class="row h-50">
         <div class="d-flex h-100 justify-content-center align-items-center">
           <mat-icon aria-hidden="false">schedule</mat-icon>
           <p class="m-0 p-1">{{ride.endTime | date: 'HH:mm'}}</p>

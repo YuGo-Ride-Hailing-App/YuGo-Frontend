@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {RideInfo} from "../../../../shared/models/RideInfo";
-import {RideService} from "../../services/ride.service";
 import {PassengerRideNotificationsService} from "../../services/passenger-ride-notifications.service";
 
 @Component({
@@ -12,8 +11,8 @@ import {PassengerRideNotificationsService} from "../../services/passenger-ride-n
 export class SearchingDriverScreenComponent implements OnInit{
   @Input() rideFoundEvent?:Observable<RideInfo>;
   @Input() errorMessageEvent?:Observable<string>;
-  text:string = "We are searching a driver for your ride, please wait."
-  loading:boolean = true;
+  text = "We are searching a driver for your ride, please wait."
+  loading = true;
   constructor(private passengerRideService:PassengerRideNotificationsService) {
   }
   ngOnInit(){
@@ -31,7 +30,7 @@ export class SearchingDriverScreenComponent implements OnInit{
     });
     this.passengerRideService.rideSearchCompleteSubscriber.subscribe(ride => {
       if(ride.status == "ACCEPTED"){
-        let date:Date = new Date(ride.startTime);
+        const date:Date = new Date(ride.startTime);
         this.text = "Driver is on his way.\nEstimated time of arrival: " + date.getHours() + ":" + date.getMinutes() + "h";
       }
       else if(ride.status == "REJECTED"){

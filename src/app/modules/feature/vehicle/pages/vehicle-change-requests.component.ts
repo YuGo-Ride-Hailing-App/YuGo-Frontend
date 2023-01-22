@@ -4,8 +4,6 @@ import {Observable, take} from "rxjs";
 import {VehicleChangeRequest} from "../model/VehicleChangeRequest";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
-import {HttpErrorResponse} from "@angular/common/http";
-import {Vehicle} from "../../../shared/models/Vehicle";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -41,10 +39,6 @@ export class VehicleChangeRequestsComponent implements OnInit, AfterViewInit{
           this.requestsPaginator.pageIndex = this.currentPage;
           this.requestsPaginator.length = results.totalCount;
         });
-      },
-      error: (error) => {
-        if (error instanceof HttpErrorResponse) {
-        }
       }
     });
   }
@@ -60,11 +54,6 @@ export class VehicleChangeRequestsComponent implements OnInit, AfterViewInit{
       next: (result) => {
         this._snackBar.open(result.message, "OK");
         this.loadData();
-      },
-      error: (error) => {
-        if (error instanceof HttpErrorResponse) {
-
-        }
       }
     });
   }
@@ -74,11 +63,6 @@ export class VehicleChangeRequestsComponent implements OnInit, AfterViewInit{
       next: (result) => {
         this._snackBar.open(result.message, "OK");
         this.loadData();
-      },
-      error: (error) => {
-        if (error instanceof HttpErrorResponse) {
-
-        }
       }
     });
   }

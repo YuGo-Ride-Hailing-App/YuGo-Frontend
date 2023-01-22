@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {RegistrationService} from "../../../services/registration.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {
@@ -23,11 +23,11 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './driver-register.component.html',
   styleUrls: ['./driver-register.component.css']
 })
-export class DriverRegisterComponent {
-  TEL_REGEX:string = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s./0-9]{0,10}$";
-  LICENSE_NUMBER_REGEX:string= "[A-Z][A-Z][0-9]*[A-Z][A-Z]";
-  accountErrorMessage:string = '';
-  vehicleErrorMessage:string = '';
+export class DriverRegisterComponent implements AfterViewInit{
+  TEL_REGEX = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s./0-9]{0,10}$";
+  LICENSE_NUMBER_REGEX= "[A-Z][A-Z][0-9]*[A-Z][A-Z]";
+  accountErrorMessage = '';
+  vehicleErrorMessage = '';
 
   vehicleDetailsForm : FormGroup;
   registrationForm : FormGroup;
@@ -68,7 +68,7 @@ export class DriverRegisterComponent {
       if(control.value.length > 20){
         return {maxLength:{value:control.value}};
       }
-      let whiteSpaceRegex:RegExp = new RegExp("^(?!.* ).{6,20}$")
+      const whiteSpaceRegex = new RegExp("^(?!.* ).{6,20}$")
       if(!whiteSpaceRegex.test(control.value)){
         return {whitespace:{value:control.value}};
       }
@@ -94,7 +94,7 @@ export class DriverRegisterComponent {
 
   onSubmit(){
     if (this.vehicleDetailsForm.valid && this.registrationForm.valid) {
-      let user:UserRegistration = {
+      const user:UserRegistration = {
         name:this.registrationForm.controls['firstName'].value,
         surname:this.registrationForm.controls['lastName'].value,
         address:this.registrationForm.controls['address'].value,
@@ -103,7 +103,7 @@ export class DriverRegisterComponent {
         email:this.registrationForm.controls['email'].value
       };
 
-      let vehicleDetails: Vehicle = {
+      const vehicleDetails: Vehicle = {
         "id": 0,
         "driverId": 0,
         "model": this.vehicleDetailsForm.controls['model'].value,

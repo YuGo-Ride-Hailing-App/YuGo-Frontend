@@ -8,8 +8,8 @@ import {UserService} from "../../shared/services/user.service";
   providedIn: 'root'
 })
 export class ProfileGuard implements CanActivate {
-  paramUserId: number = -1;
-  paramUserRole : string = "";
+  paramUserId = -1;
+  paramUserRole = "";
   constructor(private _authService: AuthService, private _userService: UserService, private _router: Router) {
   }
 
@@ -32,8 +32,8 @@ export class ProfileGuard implements CanActivate {
     this.paramUserId = Number.parseInt(route.params['userId']);
     this.paramUserRole = route.params['role'];
 
-    let currentUserRole = this._authService.getRole();
-    let currentUserId = this._authService.getId();
+    const currentUserRole = this._authService.getRole();
+    const currentUserId = this._authService.getId();
 
     if (currentUserRole == this.paramUserRole && currentUserId == this.paramUserId){
       return true;

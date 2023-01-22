@@ -6,5 +6,5 @@ export interface Panic {
   user: UserInfo
   ride: RideInfo
   time: Date
-  reason: String
+  reason: string
 }

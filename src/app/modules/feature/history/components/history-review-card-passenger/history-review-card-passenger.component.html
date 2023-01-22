@@ -7,11 +7,11 @@
           <form [formGroup]="vehicleForm" class="example-form">
             <div class="container-rating w-100 text-center">
               <div id="stars-vehicle" [ngClass]="{'starrating':this.enabledReview[0]}" class="starrating starrating2 risingstar d-flex justify-content-center flex-row-reverse" >
-                <input type="radio" id="star5v" name="rating5v" [value]="5"  formControlName="rating5v"[checked]="vehicleRating==5"/><label for="star5v" title="5 star"></label>
-                <input type="radio" id="star4v" name="rating4v" [value]="4" formControlName="rating4v"[checked]="vehicleRating==4"/><label for="star4v" title="4 star"></label>
-                <input type="radio" id="star3v" name="rating3v" [value]="3"  formControlName="rating3v"[checked]="vehicleRating==3"/><label for="star3v" title="3 star"></label>
-                <input type="radio" id="star2v" name="rating2v" [value]="2"  formControlName="rating2v"[checked]="vehicleRating==2"/><label for="star2v" title="2 star"></label>
-                <input type="radio" id="star1v" name="rating1v" [value]="1" formControlName="rating1v"[checked]="vehicleRating==1"/><label for="star1v" title="1 star"></label>
+                <input type="radio" id="star5v" name="rating5v" [value]="5"  formControlName="rating5v"[checked]="vehicleRating===5"/><label for="star5v" title="5 star"></label>
+                <input type="radio" id="star4v" name="rating4v" [value]="4" formControlName="rating4v"[checked]="vehicleRating===4"/><label for="star4v" title="4 star"></label>
+                <input type="radio" id="star3v" name="rating3v" [value]="3"  formControlName="rating3v"[checked]="vehicleRating===3"/><label for="star3v" title="3 star"></label>
+                <input type="radio" id="star2v" name="rating2v" [value]="2"  formControlName="rating2v"[checked]="vehicleRating===2"/><label for="star2v" title="2 star"></label>
+                <input type="radio" id="star1v" name="rating1v" [value]="1" formControlName="rating1v"[checked]="vehicleRating===1"/><label for="star1v" title="1 star"></label>
               </div>
             </div>
               <mat-form-field name="comment" class="example-full-width w-100">
@@ -30,11 +30,11 @@
           <form [formGroup]="rideForm" class="example-form">
           <div class="container-rating w-100 text-center">
             <div id="stars-ride" [ngClass]="{'starrating':this.enabledReview[1]}" class="starrating starrating2 risingstar d-flex justify-content-center flex-row-reverse">
-              <input type="radio" id="star5r" name="rating5r" [value]="5" formControlName="rating5r" [checked]="rideRating==5"/><label for="star5r" title="5 star"></label>
-              <input type="radio" id="star4r" name="rating4r" [value]="4" formControlName="rating4r" [checked]="rideRating==4"/><label for="star4r" title="4 star"></label>
-              <input type="radio" id="star3r" name="rating3r" [value]="3" formControlName="rating3r" [checked]="rideRating==3"/><label for="star3r" title="3 star"></label>
-              <input type="radio" id="star2r" name="rating2r" [value]="2" formControlName="rating2r" [checked]="rideRating==2"/><label for="star2r" title="2 star"></label>
-              <input type="radio" id="star1r" name="rating1r" [value]="1" formControlName="rating1r" [checked]="rideRating==1"/><label for="star1r" title="1 star"></label>
+              <input type="radio" id="star5r" name="rating5r" [value]="5" formControlName="rating5r" [checked]="rideRating===5"/><label for="star5r" title="5 star"></label>
+              <input type="radio" id="star4r" name="rating4r" [value]="4" formControlName="rating4r" [checked]="rideRating===4"/><label for="star4r" title="4 star"></label>
+              <input type="radio" id="star3r" name="rating3r" [value]="3" formControlName="rating3r" [checked]="rideRating===3"/><label for="star3r" title="3 star"></label>
+              <input type="radio" id="star2r" name="rating2r" [value]="2" formControlName="rating2r" [checked]="rideRating===2"/><label for="star2r" title="2 star"></label>
+              <input type="radio" id="star1r" name="rating1r" [value]="1" formControlName="rating1r" [checked]="rideRating===1"/><label for="star1r" title="1 star"></label>
             </div>
           </div>
 

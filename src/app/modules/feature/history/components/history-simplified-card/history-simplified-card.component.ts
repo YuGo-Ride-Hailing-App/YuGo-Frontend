@@ -30,11 +30,11 @@ import {formatDate} from '@angular/common';
 })
 export class HistorySimplifiedCardComponent implements OnInit, AfterViewInit{
   @Input()
-  public userId: number = -1;
+  public userId = -1;
   @Input()
-  public role: string = "";
-  hasError : boolean = false;
-  selected:string="startTime";
+  public role = "";
+  hasError = false;
+  selected="startTime";
   accountInfoForm : FormGroup;
   dataSource= new MatTableDataSource<RideInfo>();
   totalRows = 0;

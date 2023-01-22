@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialogRef} from "@angular/material/dialog";
-import {LoginComponent} from "../login/login.component";
 import {PassengerService} from "../../../shared/services/passenger.service";
 
 @Component({
@@ -18,7 +17,7 @@ export class AccountActivationComponent implements OnInit{
    this._route.queryParamMap.subscribe(params => {
       this.paramsObject = { ...params.keys, ...params };
       if (this.paramsObject.params["accountActivatedDialog"]==true)
-        this.passengerService.activatePassenger(this.paramsObject.params["code"]).subscribe({next:(result)=>{}});
+        this.passengerService.activatePassenger(this.paramsObject.params["code"]).subscribe({next:()=>{}});
     })
   }
 

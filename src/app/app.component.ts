@@ -12,6 +12,9 @@ import {RideInfo} from "./modules/shared/models/RideInfo";
 import {PassengerRideNotificationsService} from "./modules/feature/ride/services/passenger-ride-notifications.service";
 import {DriverRideNotificationService} from "./modules/feature/ride/services/driver-ride-notification.service";
 import {DriverService} from "./modules/shared/services/driver.service";
+import {PanicService} from "./modules/shared/services/panic.service";
+import {take} from "rxjs";
+import {PanicCardComponent} from "./modules/feature/panic/components/panic-card/panic-card.component";
 
 @Component({
   selector: 'app-root',
@@ -22,8 +25,8 @@ export class AppComponent implements OnInit, OnDestroy{
   title = 'YuGo';
   private serverUrl = environment.apiHost + 'socket'
   private stompClient: any;
-  isLoaded: boolean = false;
-  hasActiveRide:boolean = false;
+  isLoaded= false;
+  hasActiveRide= false;
   activeRide?:RideInfo;
 
   private role: string | undefined;
@@ -34,7 +37,8 @@ export class AppComponent implements OnInit, OnDestroy{
               private rideService:RideService,
               private passengerRideService:PassengerRideNotificationsService,
               private driverRideService:DriverRideNotificationService,
-              private driverService:DriverService) {
+              private driverService:DriverService,
+              private panicService: PanicService) {
   }
 
   ngOnInit(): void {
@@ -63,19 +67,43 @@ export class AppComponent implements OnInit, OnDestroy{
         },{id:"notify-passenger"});
         if(this.hasActiveRide){
           this.stompClient.subscribe("/ride-topic/notify-passenger-vehicle-location/" + this.userID, (frame:Frame) => {
-            let coordinates:Coordinates = JSON.parse(frame.body);
+            const coordinates:Coordinates = JSON.parse(frame.body);
             this.passengerRideService.updateDriverLocation(coordinates);
           }, {id:"vehicle-location"});
         }
       }
+      else if (this.role == "ADMIN"){
+        this.stompClient.subscribe("/ride-topic/notify-admin-panic", (frame: Frame) => {
+          this.notifyAdminAboutPanic(frame);
+        }, {id:"admin-panic"})
+      }
     }
   }
+
+  notifyAdminAboutPanic(frame: Frame){
+    const message:{panicId:number} = JSON.parse(frame.body);
+    this.panicService.getPanic(message.panicId).pipe(take(1)).subscribe({
+        next: panic =>{
+          const panicDialog = this.dialog.open(PanicCardComponent, {
+            minWidth: '350px',
+            minHeight: '300px',
+            width: '30%',
+            height: '40%',
+          })
+          const panicDialogInstance = panicDialog.componentInstance;
+          panicDialogInstance.panic = panic;
+          panicDialogInstance.notification = true;
+        }
+      }
+    )
+  }
+
   setHasActiveRide(value:boolean){
     if(value){
       this.hasActiveRide = true;
       this.passengerRideService.rideAcceptedEvent.next(this.activeRide!);
       this.stompClient.subscribe("/ride-topic/notify-passenger-vehicle-location/" + this.userID, (frame:Frame) => {
-        let coordinates:Coordinates = JSON.parse(frame.body);
+        const coordinates:Coordinates = JSON.parse(frame.body);
         this.passengerRideService.updateDriverLocation(coordinates);
       }, {id:"vehicle-location"});
     }else{
@@ -85,7 +113,7 @@ export class AppComponent implements OnInit, OnDestroy{
     }
   }
   notifyPassengerAboutRide(frame:Frame){
-    let message:{rideID:number} = JSON.parse(frame.body);
+    const message:{rideID:number} = JSON.parse(frame.body);
     this.rideService.getRide(message.rideID).subscribe(ride => {
       this.passengerRideService.rideSearchCompleted(ride);
       if(ride.status == "ACCEPTED"){
@@ -95,7 +123,7 @@ export class AppComponent implements OnInit, OnDestroy{
     });
   }
   parseRideRequest(frame:Frame){
-    let message:{rideID:number} = JSON.parse(frame.body);
+    const message:{rideID:number} = JSON.parse(frame.body);
     this.rideService.getRide(message.rideID).subscribe(ride => {
       this.dialog.open(RideOfferCardComponent,{
         width: '20%',
@@ -110,11 +138,12 @@ export class AppComponent implements OnInit, OnDestroy{
   ngOnDestroy(){
     this.stompClient.unsubscribe("driver-request");
     this.stompClient.unsubscribe("notify-passenger");
+    this.stompClient.unsubscribe("admin-panic");
   }
   initializeWebSocketConnection() {
-    let ws = new SockJS(this.serverUrl);
+    const ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
-    let that = this;
+    const that = this;
 
     this.stompClient.connect({}, function () {
       that.isLoaded = true;
