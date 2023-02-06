@@ -19,8 +19,7 @@ describe('RegistrationService', () => {
     expect(service).toBeTruthy();
   });
 
-
-  it('should registerPassenger', () => {
+  it('should register driver', () => {
     service.registerPassenger(mockUser1).subscribe((data) => {
       expect(data.name).toEqual(mockUser1.name);
       expect(data.surname).toEqual(mockUser1.surname);
@@ -32,6 +31,22 @@ describe('RegistrationService', () => {
     const req = httpController.expectOne({
       method: 'POST',
       url: environment.apiHost + "passenger",
+    });
+    req.flush(mockUser1);
+  });
+
+  it('should register driver', () => {
+    service.registerDriver(mockUser1).subscribe((data) => {
+      expect(data.name).toEqual(mockUser1.name);
+      expect(data.surname).toEqual(mockUser1.surname);
+      expect(data.telephoneNumber).toEqual(mockUser1.telephoneNumber);
+      expect(data.email).toEqual(mockUser1.email);
+      expect(data.address).toEqual(mockUser1.address);
+    });
+
+    const req = httpController.expectOne({
+      method: 'POST',
+      url: environment.apiHost + "driver",
     });
     req.flush(mockUser1);
   });
