@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 import {CoreModule} from "./modules/core/core.module";
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {SharedModule} from "./modules/shared/shared.module";
 import {Interceptor} from "./modules/core/interceptors/interceptor.interceptor";
 import {RideModule} from "./modules/feature/ride/ride.module";
@@ -15,7 +15,7 @@ import {RideModule} from "./modules/feature/ride/ride.module";
   imports: [
       CoreModule,
       SharedModule,
-      RideModule
+      RideModule,HttpClientModule,HttpClientModule
   ],
   providers: [
     {
