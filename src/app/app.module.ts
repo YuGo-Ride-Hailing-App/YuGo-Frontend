@@ -12,11 +12,11 @@ import {RideModule} from "./modules/feature/ride/ride.module";
   declarations: [
     AppComponent,
   ],
-    imports: [
-        CoreModule,
-        SharedModule,
-        RideModule
-    ],
+  imports: [
+      CoreModule,
+      SharedModule,
+      RideModule
+  ],
   providers: [
     {
     provide: HTTP_INTERCEPTORS,
