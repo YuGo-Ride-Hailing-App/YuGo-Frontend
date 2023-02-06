@@ -12,7 +12,7 @@ import {LiveChatComponent} from "./components/live-chat/live-chat.component";
 @NgModule({
   declarations: [
     ImagePreviewComponent,
-    LiveChatComponent
+    LiveChatComponent,
   ],
   imports: [
     CommonModule,
@@ -22,7 +22,8 @@ import {LiveChatComponent} from "./components/live-chat/live-chat.component";
     HttpClientModule,
     MaterialModule,
     AppRoutingModule,
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
     exports: [
         CommonModule,
@@ -34,6 +35,7 @@ import {LiveChatComponent} from "./components/live-chat/live-chat.component";
         AppRoutingModule,
         BrowserModule,
         LiveChatComponent
-    ]
+    ],
+  providers:[HttpClientModule]
 })
 export class SharedModule {}
