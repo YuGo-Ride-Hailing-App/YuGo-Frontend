@@ -2,7 +2,7 @@
   <div id="carouselExampleControls" class="carousel slide">
     <div class="carousel-inner">
       <div class="carousel-item active" id="login-item">
-        <h2 class="font-weight-bold text-center">Login</h2>
+        <h2 class="font-weight-bold text-center">Sign in</h2>
         <div mat-dialog-content class="d-flex justify-content-center">
           <form class="w-100" [formGroup]="loginForm" (ngSubmit)="submitLogin()">
             <mat-form-field class="py-2 w-100">
@@ -19,7 +19,7 @@
 
             <div mat-dialog-actions class="d-flex justify-content-center mt-2 pb-0">
               <p class="errorMessage mt-2 mb-2" *ngIf="this.errorMessage !== ''">{{errorMessage}}</p>
-              <button class="w-50" type="submit" mat-flat-button color="accent" [disabled]="!loginForm.value.password || !loginForm.value.email">Login</button>
+              <button id="signin-button" class="w-50" type="submit" mat-flat-button color="accent" [disabled]="!loginForm.value.password || !loginForm.value.email">Sign in</button>
             </div>
             <div class="d-flex justify-content-center align-bottom mt-1">
               <p>Don't have an account?&nbsp;</p>

@@ -45,7 +45,7 @@ export class LoginComponent{
         },
         error: (error) => {
           if (error instanceof HttpErrorResponse) {
-            this.errorMessage = error.error.message;
+            this.errorMessage = "Wrong username or password!";
           }
         },
       });

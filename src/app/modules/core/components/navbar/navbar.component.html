@@ -76,8 +76,8 @@
 </div>
 <div id="button-container" class="col">
 <div id="buttons-div" class="d-flex ms-auto" *ngIf="role==='UNREGISTERED'" >
-  <button mat-flat-button routerLink="home" [queryParams]="{loginDialog:true}" class="mx-2 rounded-pill fw-bold" color="accent">SIGN IN</button>
-  <button mat-flat-button routerLink="home" [queryParams]="{registerDialog:true}" class="accent-button mx-2 rounded-pill fw-bold" color="accent" >SIGN UP</button>
+  <button id="signin-form-button" mat-flat-button routerLink="home" [queryParams]="{loginDialog:true}" class="mx-2 rounded-pill fw-bold" color="accent">SIGN IN</button>
+  <button id="signup-form-button" mat-flat-button routerLink="home" [queryParams]="{registerDialog:true}" class="accent-button mx-2 rounded-pill fw-bold" color="accent" >SIGN UP</button>
 </div>
 
 <div id="logout-button-div" class="d-flex ms-auto" *ngIf="role!=='UNREGISTERED'" >
