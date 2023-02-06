@@ -9,11 +9,7 @@
   </div>
   <div class="col">
   <div class="navbar-collapse d-inline-block h-100" *ngIf="role==='UNREGISTERED'">
-    <ul class="navbar-nav d-inline-block" >
-      <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
-      </li>
-    </ul>
+
 </div>
   <div class="navbar-collapse d-inline-block h-100" *ngIf="role==='DRIVER'">
     <ul class="navbar-nav d-inline-block" >
@@ -43,7 +39,7 @@
         <a class="nav-link" [routerLink]="['/report', this.role, this.userId]">Reports</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/favorite">Favorite</a>
+        <a class="nav-link" routerLink="/favorite">Favorite</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/account', this.role, this.userId]">Account</a>
