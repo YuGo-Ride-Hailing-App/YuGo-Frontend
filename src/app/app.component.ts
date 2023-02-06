@@ -30,7 +30,7 @@ import {LiveChatComponent} from "./modules/shared/components/live-chat/live-chat
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['../styles/styles.css','./app.component.css']
+  styleUrls: ['../styles.css','./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy{
   title = 'YuGo';

@@ -15,6 +15,7 @@ import {VehicleModule} from "../feature/vehicle/vehicle.module";
 import { DriverRegisterComponent } from './components/register/driver-register/driver-register.component';
 import { AccountActivationComponent } from './components/account-activation/account-activation.component';
 import {PanicModule} from "../feature/panic/panic.module";
+import {Interceptor} from "./interceptors/interceptor.interceptor";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {PanicModule} from "../feature/panic/panic.module";
     AccountActivationComponent],
   exports: [
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    Interceptor
   ],
   imports: [
     CommonModule,
