@@ -4,7 +4,7 @@
       <div class="carousel-item active" id="login-item">
         <h2 class="font-weight-bold text-center">Sign in</h2>
         <div mat-dialog-content class="d-flex justify-content-center">
-          <form class="w-100" [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+          <form id="loginForm" class="w-100" [formGroup]="loginForm" (ngSubmit)="submitLogin()">
             <mat-form-field class="py-2 w-100">
               <mat-label>Email</mat-label>
               <input type="email" matInput placeholder="Example@example.com" name="email" formControlName="email">
